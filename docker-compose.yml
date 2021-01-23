@@ -1,0 +1,51 @@
+version: "3.9"
+
+services: 
+  urbexclient:
+    container_name: urbexclient
+    image: urbexclient
+    build:
+      context: ./client
+    depends_on: 
+      - urbexapi
+    volumes:
+      - ./client/src:/client/src
+      - ./client/public:/client/public
+    ports:
+      - 8080:8080
+    command: npm start
+    restart: always
+  urbexapi:
+    container_name: urbexapi
+    image: urbexapi
+    build:
+      context: ./api
+    depends_on: 
+      - urbexdb
+    restart: always
+  urbexdb:
+    container_name: urbexdb
+    image: mysql:latest
+    volumes:
+      - ./db/data:/var/lib/mysql/
+      - ./db/db.cnf:/etc/mysql/conf.d/custom.cnf
+    ports:
+      - 3306:3306
+    environment: 
+      MYSQL_USER: root
+      MYSQL_HOST: localhost
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: urbex
+    restart: always
+  urbexnginx:
+    container_name: urbexnginx
+    image: nginx:latest
+    depends_on: 
+      - urbexclient
+      - urbexapi
+    volumes: 
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports: 
+      - 80:80
+    restart: always
+    

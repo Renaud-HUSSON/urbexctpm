@@ -1,4 +1,5 @@
 require('dotenv').config()
+const Router = require('./router/index')
 const express = require('express')
 
 const app = express()
@@ -6,6 +7,9 @@ const app = express()
 //Middlewares
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+//Router
+Router(app)
 
 //Synchronize db tables
 const db = require('./models/Database')

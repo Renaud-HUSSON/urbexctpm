@@ -28,6 +28,7 @@ services:
       - ./api/server.js:/api/server.js
       - ./api/models:/api/models
       - ./api/controllers:/api/controllers
+      - ./api/router:/api/router
     command: npm run watch
     restart: always
   urbexdb:

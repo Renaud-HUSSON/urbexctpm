@@ -22,6 +22,12 @@ services:
       context: ./api
     depends_on: 
       - urbexdb
+    ports:
+      - 8081:8081
+    volumes:
+      - ./api/server.js:/api/server.js
+      - ./api/models:/api/models
+    command: npm run watch
     restart: always
   urbexdb:
     container_name: urbexdb

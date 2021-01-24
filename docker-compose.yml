@@ -27,6 +27,7 @@ services:
     volumes:
       - ./api/server.js:/api/server.js
       - ./api/models:/api/models
+      - ./api/controllers:/api/controllers
     command: npm run watch
     restart: always
   urbexdb:

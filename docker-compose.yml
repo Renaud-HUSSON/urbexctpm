@@ -29,6 +29,7 @@ services:
       - ./api/models:/api/models
       - ./api/controllers:/api/controllers
       - ./api/router:/api/router
+      - ./api/auth:/api/auth
     command: npm run watch
     restart: always
   urbexdb:

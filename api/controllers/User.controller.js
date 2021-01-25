@@ -79,6 +79,13 @@ exports.findById = (req, res) => {
     }
   })
   .then(results => {
+    if(!results){
+      return res.status(404).send({
+        success: false,
+        message:"L'utilisateur est introuvable"
+      })
+    }
+    
     return res.send({
       success: true,
       data: results

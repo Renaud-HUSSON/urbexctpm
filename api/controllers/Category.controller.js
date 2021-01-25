@@ -46,7 +46,7 @@ exports.findAll = (_req, res) => {
 }
 
 //Finds a category by its id
-exports.findOne = (req, res) => {
+exports.findById = (req, res) => {
   const id = req.params.id
 
   Category.findOne({
@@ -55,8 +55,16 @@ exports.findOne = (req, res) => {
     }
   })
   .then(results => {
+    if(!results){
+      return res.status(404).send({
+        success: false,
+        message: 'La catégorie est introuvable'
+      })
+    }
+    
     return res.send({
-      
+      success: true,
+      data: results
     })
   })
   .catch(err => {
@@ -99,7 +107,7 @@ exports.update = (req, res) => {
 }
 
 //Deletes one, or manies categories
-exports.delete = (req, res) => {
+exports.deleteById = (req, res) => {
   if(!req.query.id){
     return res.status(400).send({
       success: false,

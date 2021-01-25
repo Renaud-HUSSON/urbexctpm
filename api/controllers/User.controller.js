@@ -5,10 +5,28 @@ const User = db.users
 //Creates a user in the database
 exports.create = async (req, res) => {
   //verify request's body
-  if(!req.body.username || !req.body.email || !req.body.password){
+  if(!req.body.email || !req.body.password || !req.body.username){
     return res.status(400).send({
+      sucess: false,
+      message: "Vous devez remplir tous les champs"
+    })
+  }
+
+  const userByEmail = await this.findByEmail(req.body.email)
+
+  if(userByEmail.success){
+    return res.status(409).send({
       success: false,
-      message: "Certains champs sont vides, veuillez les remplir."
+      message: "Cet email est déjà pris"
+    })
+  }
+
+  const userByUsername = await this.findByUsername(req.body.username)
+
+  if(userByUsername.success){
+    return res.status(409).send({
+      success: false,
+      message: "Ce nom d'utilisateur est déjà pris"
     })
   }
 
@@ -16,16 +34,17 @@ exports.create = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.password, 10)
 
   //Insert the user in the database
-  User.create({
+  return User.create({
     username: req.body.username,
     email: req.body.email,
     password: hashedPassword
   })
-  .then(() => {
-    return res.send({
+  .then(data => {
+    return {
       success: true,
-      message: "Votre compte a bien été créé !"
-    })
+      message: "Votre compte a bien été créé !",
+      data: data.dataValues.id
+    }
   })
   .catch(e => {
     return res.status(500).send({
@@ -136,56 +155,60 @@ exports.deleteById = (req, res) => {
 
 //Finds a user by his username
 exports.findByUsername = (username) => {
-  User.findOne({
-    where: {
-      username: username
-    }
-  })
-  .then(results => {
-    if(results.length === 0){
-      return {
-        success: false,
-        message: `Aucun utilisateur n'a comme nom d'utilisateur ${username}`
+  return new Promise(resolve => {
+    User.findOne({
+      where: {
+        username: username
       }
-    }
-    
-    return {
-      success: true,
-      data: results
-    }
-  })
-  .catch(e => {
-    return {
-      success: false,
-      message: `Une erreur est survenue lors de la récupération de l'utilisateur ${username}: ${e}`
-    }
+    })
+    .then(results => {
+      if(results.length === 0){
+        resolve({
+          success: false,
+          message: `Aucun utilisateur n'a comme nom d'utilisateur ${username}`
+        })
+      }
+      
+      resolve({
+        success: true,
+        data: results
+      })
+    })
+    .catch(e => {
+      resolve({
+        success: false,
+        message: `Une erreur est survenue lors de la récupération de l'utilisateur ${username}: ${e}`
+      })
+    })
   })
 }
 
 //Finds a user by his email
 exports.findByEmail = (email) => {
-  User.findOne({
-    where: {
-      email: email
-    }
-  })
-  .then(results => {
-    if(results.length === 0){
-      return {
-        success: false,
-        message: `Aucun utilisateur n'a comme nom d'utilisateur ayant comme email ${email}`
+  return new Promise(resolve => {
+    User.findOne({
+      where: {
+        email: email
       }
-    }
-    
-    return {
-      success: true,
-      data: results
-    }
-  })
-  .catch(e => {
-    return {
-      success: false,
-      message: `Une erreur est survenue lors de la récupération de l'utilisateur ayant comme email ${email}: ${e}`
-    }
+    })
+    .then(results => {
+      if(!results){
+        resolve({
+          success: false,
+          message: `Le compte ayant pour adresse email ${email} n'existe pas`
+        })
+      }
+      
+      resolve({
+        success: true,
+        data: results
+      })
+    })
+    .catch(e => {
+      resolve({
+        success: false,
+        message: `Une erreur est survenue lors de la récupération de l'utilisateur ayant comme email ${email}: ${e}`
+      })
+    })
   })
 }

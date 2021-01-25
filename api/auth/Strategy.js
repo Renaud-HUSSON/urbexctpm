@@ -1,13 +1,16 @@
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
-const User = require('../models/User.model')
+const db = require('../models/Database')
+const User = db.users
 
 const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKeyProvider: process.env.JWT_SECRET,
+  secretOrKey: process.env.JWT_SECRET,
 }
 
-const strategy = new JwtStrategy(options, (payload, done) => {
+const verifyCallback = (payload, done) => {
+  console.log(payload)
+  
   User.findOne({
     where: {
       id: payload.sub
@@ -24,7 +27,9 @@ const strategy = new JwtStrategy(options, (payload, done) => {
     return done(err, false)
   })
 
-})
+}
+
+const strategy = new JwtStrategy(options, verifyCallback)
 
 module.exports = (passport) => {
   passport.use(strategy)

@@ -1,5 +1,6 @@
 const db = require('../models/Database')
 const bcrypt = require('bcrypt')
+const getContentFromQuery = require('../utils/getContentFromQuery')
 const User = db.users
 
 //Creates a user in the database
@@ -55,8 +56,35 @@ exports.create = async (req, res) => {
 }
 
 exports.findAll = (req, res) => {
+  //Get params from the query to give options to the request
+  const filter = req.query.filter
+  const fields = req.query.fields
+  const order = req.query.order
+
+  const page = req.query.page || 0
+  const imagesPerPage = 20
+
+  //Options for the database query
+  const options = {}
+
+  if(filter){
+    options.where = getContentFromQuery(filter)
+  }
+  
+  if(fields){
+    options.attributes = getContentFromQuery(fields)
+  }
+
+  if(order){
+    options.order = getContentFromQuery(order)
+  }
+  
   //Retrieve all users from the database
-  User.findAll()
+  User.findAll({
+    ...options,
+    offset: page * imagesPerPage,
+    limit: imagesPerPage
+  })
   .then(results => {
     return res.send({
       success: true,

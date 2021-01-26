@@ -30,7 +30,34 @@ exports.create = (req, res) => {
 
 //Retrieves all categories from the database
 exports.findAll = (_req, res) => {
-  Category.findAll()
+  //Get params from the query to give options to the request
+  const filter = req.query.filter
+  const fields = req.query.fields
+  const order = req.query.order
+
+  const page = req.query.page || 0
+  const imagesPerPage = 20
+
+  //Options for the database query
+  const options = {}
+
+  if(filter){
+    options.where = getContentFromQuery(filter)
+  }
+  
+  if(fields){
+    options.attributes = getContentFromQuery(fields)
+  }
+
+  if(order){
+    options.order = getContentFromQuery(order)
+  }
+  
+  Category.findAll({
+    ...options,
+    offset: page * imagesPerPage,
+    limit: imagesPerPage
+  })
   .then(results => {
     return res.send({
       succes: true,

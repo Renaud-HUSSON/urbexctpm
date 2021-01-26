@@ -10,6 +10,9 @@ const app = express()
 require('./auth/Strategy')(passport)
 passport.initialize()
 
+//Use static/images as static folder
+app.use('/images', express.static(__dirname + '/images'))
+
 //Middlewares
 app.use(cookieParser())
 app.use(express.json())

@@ -30,6 +30,7 @@ services:
       - ./api/controllers:/api/controllers
       - ./api/router:/api/router
       - ./api/auth:/api/auth
+      - ./api/images:/api/images
       - ./api/utils:/api/utils
     command: npm run watch
     restart: always

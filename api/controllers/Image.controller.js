@@ -1,18 +1,31 @@
 const db = require('../models/Database')
 const getContentFromQuery = require('../utils/getContentFromQuery')
 const Image = db.images
+const { uploadImage } = require('../utils/images')
 
 //Creates an image
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   //Verify request's body
-  if(!req.body.titre || !req.body.chemin || !req.body.description || !req.body.categorie){
+  if(!req.body.titre || !req.file || !req.body.description || !req.body.categorie){
     return res.status(400).send({
       success: false,
       message: 'Vous devez remplir tous les champs'
     })
   }
+  
+  //Tries to upload the image and its thumbnails
+  try {
+    await uploadImage(req.file, "/images/")
+  }catch(e){
+    return res.status(500).send(e)
+  }
 
-  Image.create(req.body)
+  const body = {
+    ...req.body,
+    chemin: `/images/${req.file.originalname}`
+  }
+
+  Image.create(body)
   .then(data => {
     return res.send({
       success: true,
@@ -106,14 +119,19 @@ exports.update = (req, res) => {
   const id = req.params.id
   
   //Verify request's body
-  if(!req.body.titre && !req.body.chemin && !req.body.description && !req.body.categorie){
+  if(!req.body.titre && !req.file && !req.body.description && !req.body.categorie){
     return res.status(400).send({
       success: false,
       message: 'Vous devez remplir tous les champs'
     })
   }
 
-  Image.update(req.body, {
+  const body = {
+    ...req.body,
+    chemin: `/images/${req.file.originalname}`
+  }
+  
+  Image.update(body, {
     where: {
       id: id
     }

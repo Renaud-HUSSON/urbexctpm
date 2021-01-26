@@ -1,7 +1,7 @@
 const db = require('../models/Database')
 const getContentFromQuery = require('../utils/getContentFromQuery')
 const Image = db.images
-const { uploadImage } = require('../utils/images')
+const { uploadImage, deleteImage } = require('../utils/images')
 
 //Creates an image
 exports.create = async (req, res) => {
@@ -151,7 +151,7 @@ exports.update = (req, res) => {
 }
 
 //Deletes one or many images
-exports.deleteById = (req, res) => {
+exports.deleteById = async (req, res) => {
   if(!req.query.id){
     return res.status(400).send({
       success: false,
@@ -161,21 +161,45 @@ exports.deleteById = (req, res) => {
 
   const id = req.query.id.split(',')
 
-  Image.destroy({
+  //Get image's path to delete the image
+  Image.findAll({
     where: {
       id: id
-    }
+    },
+    attributes: ['chemin']
   })
-  .then(() => {
-    return res.send({
-      success: true,
-      message: id.length === 1 ? "L'image a bien été supprimée" : "Les images ont bien été supprimées"
+  .then(async results => {
+    const paths = results.map(image => image.dataValues.chemin)
+
+    try {
+      await deleteImage(paths)
+    }catch(e){
+      return res.status(500).send(e)
+    }
+    
+    Image.destroy({
+      where: {
+        id: id
+      }
+    })
+    .then(() => {
+      return res.send({
+        success: true,
+        message: id.length === 1 ? "L'image a bien été supprimée" : "Les images ont bien été supprimées"
+      })
+    })
+    .catch(err => {
+      return res.status(500).send({
+        success: false,
+        message: `Une erreur est survenue lors de la suppresion d'une ou plusieurs images: ${err}`
+      })
     })
   })
   .catch(err => {
-    return res.status(500).send({
+    res.status(500).send({
       success: false,
       message: `Une erreur est survenue lors de la suppresion d'une ou plusieurs images: ${err}`
     })
   })
+
 }

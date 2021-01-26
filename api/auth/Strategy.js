@@ -9,8 +9,6 @@ const options = {
 }
 
 const verifyCallback = (payload, done) => {
-  console.log(payload)
-  
   User.findOne({
     where: {
       id: payload.sub

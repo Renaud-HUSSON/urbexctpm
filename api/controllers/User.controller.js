@@ -92,8 +92,10 @@ exports.findAll = (req, res) => {
     })
   })
   .catch(e => {
-    console.log(`Error while fetching all users: ${e}`)
-    res.status(500)
+    res.status(500).send({
+      success: false,
+      message: `Error while fetching all users: ${e}`
+    })
   })
 }
 

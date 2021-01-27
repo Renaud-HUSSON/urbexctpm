@@ -17,9 +17,9 @@ header {
     padding: 0.5rem;
     cursor: pointer;
     z-index: 100;
-    transition: 1s;
-
+    
     > div {
+      transition: 1.5s;
       width: 30px;
       height: 3px;
       background-color: var(--black);

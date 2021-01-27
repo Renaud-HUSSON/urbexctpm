@@ -8,6 +8,13 @@
 
 body {
   padding: 0 var(--bodyPadding);
+  width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+}
+
+section {
+  margin: 5rem 0;
 }
 
 a {
@@ -16,4 +23,26 @@ a {
 
 li {
   list-style: none;
+}
+
+.button {
+  display: inline-block;
+  padding: 1.5rem;
+  outline: none;
+  text-transform: uppercase;
+  font-size: 2rem;
+  color: white;
+  background: var(--black);
+  transition: 0.3s;
+  
+  &:hover {
+    background: var(--lightBlack);
+  }
+}
+
+@media (max-width: 768px){
+  .button {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
 }

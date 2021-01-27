@@ -11,7 +11,7 @@ const Header = () => {
   
   return <header>
     <Link to="/">urbexctpm</Link>
-    <div className={`burger ${nav && 'light'}`} onClick={handleClick}>
+    <div className={`burger ${nav ?'light' : ''}`} onClick={handleClick}>
       <div></div>
       <div></div>
       <div></div>

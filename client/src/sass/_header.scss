@@ -1,0 +1,91 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--navHeiht);
+  
+  > a {
+    font-family: 'Shadows into light';
+    font-size: 4rem;
+  }
+
+  .burger {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: 1s;
+
+    > div {
+      width: 30px;
+      height: 3px;
+      background-color: var(--black);
+    }
+
+    &.light div{
+      background-color: white;
+    }
+  }
+
+  nav {
+    // Initialy positioned at:
+    // x: devices's width - header padding - burger padding - half of burger's width
+    // y: half nav's height
+    // => center it inside the burger on every device
+    clip-path: circle(0% at calc(100vw - var(--bodyPadding) - 0.5rem - 15px) calc(var(--navHeiht) / 2));
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: var(--black);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.7s;
+    
+    * {
+      font-weight: 700;
+      letter-spacing: 0.25rem;
+    }
+    
+    ul {
+      text-align: center;
+      
+      li {
+        padding: 1rem;
+
+        a {
+          width: 100%;
+          font-size: 3rem;
+          text-transform: uppercase;
+          padding: 1rem;
+        }
+      }
+    }
+    
+    * {
+      color: white;
+    }
+
+    &.active {
+      clip-path: circle(150% at 100% 0);
+    }
+  }
+}
+
+@media (max-width: 768px){
+  header {
+    > a {
+      font-size: 3rem;
+    }
+
+    nav ul li a {
+      font-size: 2rem;
+    }
+  }
+}

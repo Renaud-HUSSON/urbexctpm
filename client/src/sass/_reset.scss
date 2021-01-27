@@ -3,4 +3,17 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Josefin Sans';
+  color: var(--black);
+}
+
+body {
+  padding: 0 var(--bodyPadding);
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
 }

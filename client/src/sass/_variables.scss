@@ -1,0 +1,19 @@
+:root {
+  //Colors
+  --black: #181818;
+
+
+  --bodyPadding: 6rem;
+  --navHeiht: clamp(100px, 12vh, 12vh); 
+}
+
+@media (max-width: 1200px){
+  :root {
+    --bodyPadding: 2rem;
+  }
+}
+@media (max-width: 768px){
+  :root {
+    --bodyPadding: 1rem;
+  }
+}

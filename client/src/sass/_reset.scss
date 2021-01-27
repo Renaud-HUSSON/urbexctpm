@@ -11,6 +11,11 @@ body {
   width: 100vw;
   overflow-x: hidden;
   position: relative;
+
+  &[noscroll] {
+    height: 100vh;
+    overflow: hidden;
+  }
 }
 
 section {

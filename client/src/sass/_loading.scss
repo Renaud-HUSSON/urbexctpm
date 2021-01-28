@@ -1,0 +1,48 @@
+.loader-bubbles{
+  display: block;
+  position: relative;
+  height: 50px;
+  
+	&:before, 
+	&:after,
+	span{
+		content :'';
+		display: block;
+		box-sizing:border-box;
+		width: 25px;
+		height: 25px;
+		background-color: var(--black);
+		border-radius: 50px;
+		border: 0px solid var(--black);
+		position: absolute;
+    left: 0;
+    top: 0;
+		animation: shatter 2.3s ease-in-out infinite;
+		animation-delay: -.66s;
+	}
+	span{
+    left: 50px;
+		animation-delay: 0s;
+  }
+  &:after{
+    left: 25px;
+    animation-delay: -.33s;
+  }
+  
+  @keyframes shatter{
+    0%{ @include transform(scale(0));}
+  
+    50%{ @include transform(scale(.50));}
+  
+    65%{ @include transform(scale(.40));
+      background-color: rgba(255,255,255, 1);
+      border-width:0px;}
+  
+    90%{ background-color: rgba(255,255,255, 0); opacity: 1;}
+  
+    100%{
+      @include transform(scale(1)); border-width:1px;
+      background-color: transparent;
+      opacity: 0;}
+  }
+}

@@ -52,8 +52,8 @@ div {
   }
 
   .separator {
+    padding: 0;
     margin: 3rem calc(-1 * var(--bodyPadding));
-    margin-top: 8rem;
     background-color: var(--black);
     
     p {

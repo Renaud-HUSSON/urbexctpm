@@ -18,8 +18,13 @@ body {
   }
 }
 
+h1 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+}
+
 section {
-  margin: 5rem 0;
+  padding: 5rem 0;
 }
 
 a {
@@ -45,7 +50,27 @@ li {
   }
 }
 
+.intersection-observer {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.8s;
+}
+
+.appear {
+  transition: 0.8s;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
 @media (max-width: 768px){
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  section {
+    padding: 3rem 0;
+  }
+  
   .button {
     font-size: 1.5rem;
     padding: 1rem;

@@ -13,9 +13,6 @@ const PresentationGalerie = () => {
       <img className="1" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex1.jpg`} alt="urbex" />
       <img className="2" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex2.jpg`} alt="urbex" />
       <img className="3" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex3.jpg`} alt="urbex" />
-      <img className="4" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex1.jpg`} alt="urbex" />
-      <img className="5" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex2.jpg`} alt="urbex" />
-      <img className="6" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex3.jpg`} alt="urbex" />
     </Carousel>
 
   </section>

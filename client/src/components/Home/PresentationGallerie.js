@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom"
+import Carousel from "./Carousel"
+import { v4 as uuid } from 'uuid';
 
 const PresentationGalerie = () => {
   return <section className="presentation-galerie">
@@ -6,21 +8,16 @@ const PresentationGalerie = () => {
       <h2>DÉCOUVREZ MES PHOTOS D'URBEX</h2>
       <Link className="button" to="/gallerie">VOIR LA GALLERIE</Link>
     </div>
-    <div className="carousel">
-      <svg width="37" height="68" viewBox="0 0 37 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M35 2L3 34L35 66" stroke="black" strokeWidth="3"/>
-      </svg>
+    
+    <Carousel>
+      <img className="1" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex1.jpg`} alt="urbex" />
+      <img className="2" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex2.jpg`} alt="urbex" />
+      <img className="3" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex3.jpg`} alt="urbex" />
+      <img className="4" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex1.jpg`} alt="urbex" />
+      <img className="5" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex2.jpg`} alt="urbex" />
+      <img className="6" key={uuid()} src={`${process.env.PUBLIC_URL}/urbex3.jpg`} alt="urbex" />
+    </Carousel>
 
-      <div className="carousel__images">
-        <img src={`${process.env.PUBLIC_URL}/urbex1.jpg`} alt="urbex" />
-        <img className="carousel__images--active" src={`${process.env.PUBLIC_URL}/urbex2.jpg`} alt="urbex" />
-        <img src={`${process.env.PUBLIC_URL}/urbex3.jpg`} alt="urbex" />
-      </div>
-
-      <svg width="37" height="68" viewBox="0 0 37 68" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2 66L34 34L2 2" stroke="black" strokeWidth="3"/>
-      </svg>
-    </div>
   </section>
 }
 

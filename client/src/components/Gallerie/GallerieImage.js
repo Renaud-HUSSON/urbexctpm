@@ -10,7 +10,7 @@ const GallerieImage = ({image}) => {
     rootMargin: '0px'
   });
 
-  return <Link className={`gallerie__item ${inView ? 'appear' : 'intersection-observer'}`} to={`/gallerie/${image.id}`} ref={ref}>
+  return <Link className={`gallerie__images__item ${inView ? 'appear' : 'intersection-observer'}`} to={`/gallerie/${image.id}`} ref={ref}>
     <div className="hover">
       <p>{image.titre}</p>
     </div>

@@ -7,11 +7,11 @@ const Gallerie = () => {
     
   const [images, setImages] = useState([])
 
-  return <section>
+  return <section className="gallerie">
     <h1>LA GALLERIE</h1>
     {
       images.length !== 0
-      ?<div className="gallerie" ref={gallerie}>
+      ?<div className="gallerie__images" ref={gallerie}>
         {
           images.map(image => {
             return <GallerieImage key={image.id} image={image} />

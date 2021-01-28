@@ -1,10 +1,10 @@
-section {
-  .gallerie {
+section.gallerie {
+  .gallerie__images {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1.25rem;
 
-    .gallerie__item {
+    .gallerie__images__item {
       @extend .intersection-observer;
       
       display: block;
@@ -51,20 +51,20 @@ section {
 }
 
 @media (max-width: 991px){
-  section {
+  section.gallerie {
     padding-bottom: 2rem;
 
-    .gallerie {
+    .gallerie__images {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 }
 
 @media (max-width: 768px){
-  section {
+  section.gallerie {
     padding-bottom: 1rem;
 
-    .gallerie {
+    .gallerie__images {
       grid-template-columns: 1fr;
     }
   }

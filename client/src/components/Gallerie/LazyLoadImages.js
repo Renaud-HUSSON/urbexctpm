@@ -21,7 +21,7 @@ const LazyLoadImages = ({setImages}) => {
   useEffect(() => {
     //Run it only if the Loading component is visible, if it isn't the first render, and if all images have not been already loaded
     if(inView && !initialRender && !pagination.allLoaded){
-      fetch(`/api/images?limit=${LIMIT}&page=${pagination.page}`)
+      fetch(`/api/images?limit=${LIMIT}&page=${pagination.page}&fields=["id", "chemin", "titre"]`)
       .then(data => data.json())
       .then(json => {
         setPagination(pagination => {

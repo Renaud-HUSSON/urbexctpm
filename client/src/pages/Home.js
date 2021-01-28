@@ -3,7 +3,7 @@ import PresentationCarte from "../components/Home/PresentationCarte"
 import PresentationGalerie from "../components/Home/PresentationGallerie"
 
 const Home = () => {
-  return <div>
+  return <div className="homepage">
     <PresentationGalerie />
     <Presentation />
     <PresentationCarte />

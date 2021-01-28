@@ -36,7 +36,7 @@ header {
     // y: half nav's height
     // => center it inside the burger on every device
     clip-path: circle(0% at calc(100vw - var(--bodyPadding) - 0.5rem - 15px) calc(var(--navHeiht) / 2));
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     top: 0;

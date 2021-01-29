@@ -16,6 +16,8 @@ exports.uploadImage = (image, path) => {
     try {
       await resizeImage(image, `${__dirname}/..${path}thumbnails/`)
     }catch(e){
+      console.log('UPLOAD ERROR')
+      console.log('e')
       return reject(e)
     }
 

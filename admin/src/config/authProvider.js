@@ -30,14 +30,13 @@ const authProvider = {
   checkAuth: (params) => {
     const request = new Request(`${BASE_URL}authenticated`)
 
-    return new Promise((resolve, reject) => {
-      fetch(request).then(data => data.json())
-      .then(json => {
-        if(!json.success){
-          return reject({redirectTo: '/login'})
-        }
-        return resolve()
-      })
+    return new Promise(async (resolve, reject) => {
+      const data = await fetch(request)
+      const json = await data.json()
+      if(!json.success){
+        return reject({redirectTo: '/login'})
+      }
+      return resolve()
     })
   },
   logout: () => {
@@ -57,7 +56,7 @@ const authProvider = {
     return Promise.resolve()
   },
   getPermissions: (params) => {
-    //No permissions, either
+    //No permissions, either the user is connected or he isn't, role based authentication will come later
     return Promise.resolve()
   }
 }

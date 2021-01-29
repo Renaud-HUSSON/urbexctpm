@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
   const fields = req.query.fields
   const order = req.query.order
 
-  const page = req.query.page || 0
+  const page = req.query.page - 1 || 0
   const imagesPerPage = req.query.limit ? parseInt(req.query.limit) : 18
 
   //Options for the database query
@@ -65,16 +65,17 @@ exports.findAll = (req, res) => {
     options.order = getContentFromQuery(order)
   }
 
-  Image.findAll({
+  Image.findAndCountAll({
     ...options,
     offset: page * imagesPerPage,
     limit: imagesPerPage
   })
   .then(results => {
-    return res.send({
+    return res.set('Content-Range', `${page * imagesPerPage}-${imagesPerPage * (page + 1) > results.count ? results.count : imagesPerPage * (page + 1)}/${results.count}`).send({
+      data: results.rows,
       success: true,
-      data: results,
-      page: page
+      page: page,
+      total: results.count
     })
   })
   .catch(err => {

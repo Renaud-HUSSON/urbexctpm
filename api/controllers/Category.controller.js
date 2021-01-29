@@ -1,4 +1,5 @@
 const db = require('../models/Database')
+const getContentFromQuery = require('../utils/getContentFromQuery')
 const Category = db.category
 
 //Creates a category in the database
@@ -29,14 +30,14 @@ exports.create = (req, res) => {
 }
 
 //Retrieves all categories from the database
-exports.findAll = (_req, res) => {
+exports.findAll = (req, res) => {
   //Get params from the query to give options to the request
   const filter = req.query.filter
   const fields = req.query.fields
   const order = req.query.order
 
-  const page = req.query.page || 0
-  const imagesPerPage = 20
+  const page = req.query.page - 1 || 0
+  const imagesPerPage = req.query.limit ? parseInt(req.query.limit) : 18
 
   //Options for the database query
   const options = {}
@@ -53,15 +54,17 @@ exports.findAll = (_req, res) => {
     options.order = getContentFromQuery(order)
   }
   
-  Category.findAll({
+  Category.findAndCountAll({
     ...options,
     offset: page * imagesPerPage,
     limit: imagesPerPage
   })
   .then(results => {
-    return res.send({
-      succes: true,
-      data: results
+    return res.set('Content-Range', `${page * imagesPerPage}-${imagesPerPage * (page + 1) > results.count ? results.count : imagesPerPage * (page + 1)}/${results.count}`).send({
+      data: results.rows,
+      success: true,
+      page: page,
+      total: results.count
     })
   })
   .catch(err => {

@@ -23,7 +23,7 @@ Router(app)
 
 //Synchronize db tables
 const db = require('./models/Database')
-// db.sequelize.sync({ force: true })
+db.sequelize.sync()
 
 //Port to run the api on
 const PORT = process.env.PORT || '8081'

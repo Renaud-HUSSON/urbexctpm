@@ -63,7 +63,6 @@ router.get('/authenticated', async (req, res) => {
 
   try {
     const token = jwt.verify(access_token, process.env.JWT_SECRET)
-    console.log(token)
   }catch(err){
     res.cookie('access_token', '', {maxAge: 0})
     

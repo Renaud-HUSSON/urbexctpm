@@ -4,7 +4,7 @@ const { findAll, findById, create, update, deleteById } = require('../controller
 
 router.get('/', passport.authenticate('jwt', { session: false }), findAll)
 router.get('/:id', passport.authenticate('jwt', { session: false }), findById)
-router.post('/', passport.authenticate('jwt', { session: false }), () => {
+router.put('/', passport.authenticate('jwt', { session: false }), () => {
   create()
 
   return res.send({

@@ -122,10 +122,13 @@ exports.update = (req, res) => {
       id: id
     }
   })
-  .then(() => {
+  .then(results => {
     return res.send({
       success: true,
-      message: 'Les informations ont bien été modifiées'
+      message: 'Les informations ont bien été modifiées',
+      data: {
+        id: results
+      }
     })
   })
   .catch(err => {

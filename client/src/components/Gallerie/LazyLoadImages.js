@@ -10,7 +10,7 @@ const LazyLoadImages = ({setImages}) => {
   const [initialRender, setInitialRender] = useState(true)
   
   const [pagination, setPagination] = useState({
-    page: 0,
+    page: 1,
     allLoaded: false
   })
   

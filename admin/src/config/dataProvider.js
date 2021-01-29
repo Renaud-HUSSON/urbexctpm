@@ -64,7 +64,7 @@ const customDataProvider = {
   update: async (ressource, params) => {
     const form = new FormData()
     for(const item in params.data){
-      if(params.data[item].hasOwnProperty('rawFile')){
+      if(params.data[item] && params.data[item].hasOwnProperty('rawFile')){
         form.append(item, params.data[item].rawFile)
       }else{
         form.append(item, params.data[item])

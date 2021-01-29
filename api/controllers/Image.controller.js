@@ -6,7 +6,7 @@ const { uploadImage, deleteImage } = require('../utils/images')
 //Creates an image
 exports.create = async (req, res) => {
   //Verify request's body
-  if(!req.body.titre || !req.file || !req.body.description || !req.body.categorie){
+  if(!req.body.titre || !req.file || !req.body.description){
     return res.status(400).send({
       success: false,
       message: 'Vous devez remplir tous les champs'
@@ -29,7 +29,8 @@ exports.create = async (req, res) => {
   .then(data => {
     return res.send({
       success: true,
-      message: `L'image ${data.dataValues.titre} a bien été ajoutée`
+      message: `L'image ${data.dataValues.titre} a bien été ajoutée`,
+      data: data
     })
   })
   .catch(err => {
@@ -66,6 +67,7 @@ exports.findAll = (req, res) => {
   }
 
   Image.findAndCountAll({
+    order: [["id", "DESC"]],
     ...options,
     offset: page * imagesPerPage,
     limit: imagesPerPage
@@ -117,11 +119,11 @@ exports.findById = (req, res) => {
 }
 
 //Updates an image
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id
   
   //Verify request's body
-  if(!req.body.titre && !req.file && !req.body.description && !req.body.categorie){
+  if(!req.body.titre && !req.file && !req.body.description && !req.body.categorie){    
     return res.status(400).send({
       success: false,
       message: 'Vous devez remplir tous les champs'
@@ -130,18 +132,42 @@ exports.update = (req, res) => {
 
   const body = {
     ...req.body,
-    chemin: `/images/${req.file.originalname}`
   }
+
+  if(req.file){
+    body.chemin = `/images/${req.file.originalname}`
+
+    //Tries to upload the image and its thumbnails
+    try {
+      await deleteImage([req.body.chemin])
+      await uploadImage(req.file, "/images/")
+    }catch(e){
+      return res.status(500).send({
+        success: false,
+        message: `Une erreur est survenue: ${e}`
+      })
+    }
+  }
+
+  //Fixes an error when editing an image without a category
+  for(item in body){
+    if(body[item] === 'null'){
+      body[item] = null
+    }
+  }
+
+  console.log(body)
   
   Image.update(body, {
     where: {
       id: id
     }
   })
-  .then(() => {
+  .then(data => {
     return res.send({
       success: true,
-      message: "L'image a bien été modifiée"
+      message: "L'image a bien été modifiée",
+      data: data
     })
   })
   .catch(err => {

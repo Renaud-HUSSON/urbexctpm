@@ -18,7 +18,8 @@ exports.create = (req, res) => {
   .then(data => {
     return res.send({
       success: true,
-      message: `La catégorie ${data.dataValues.titre} a bien été ajoutée`
+      message: `La catégorie ${data.dataValues.titre} a bien été ajoutée`,
+      data: data
     })
   })
   .catch(err => {
@@ -94,7 +95,7 @@ exports.findById = (req, res) => {
     
     return res.send({
       success: true,
-      data: results
+      data: results,
     })
   })
   .catch(err => {

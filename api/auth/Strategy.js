@@ -3,8 +3,16 @@ const ExtractJwt = require('passport-jwt').ExtractJwt
 const db = require('../models/Database')
 const User = db.users
 
+const jwtExtractor = req => {
+  if(!req.cookies.access_token){
+    return null
+  }
+
+  return req.cookies.access_token
+}
+
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: jwtExtractor,
   secretOrKey: process.env.JWT_SECRET,
 }
 

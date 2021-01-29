@@ -8,7 +8,16 @@ const authProvider = {
       headers: new Headers({ 'Content-Type': 'application/json' }),
     })
 
-    return fetch(request).then(data => data.json()).then(json => json)
+    return new Promise(async (resolve, reject) => {
+      return fetch(request)
+      .then(data => data.json())
+      .then(json => {
+        if(!json.success){
+          return reject({message: json.message})
+        }
+        return resolve({message: json.message})
+      })
+    })
   },
   checkError: (error) => {
     const status = error.status;

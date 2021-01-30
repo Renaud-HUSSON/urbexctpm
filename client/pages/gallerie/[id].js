@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom"
-import Loading from "../components/shared/Loading"
-import useGetData from '../hooks/useGetData'
+import Loading from "../../components/shared/Loading"
+import useGetData from '../../hooks/useGetData'
+import { useRouter } from 'next/router'
 
 const ImageDetails = () => {
-  const id = useParams().id
+  const id = useRouter().query.id
   const url = `/api/images/${id}`
 
   const image = useGetData(url)

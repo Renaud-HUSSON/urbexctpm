@@ -9,11 +9,14 @@ services:
     depends_on: 
       - urbexapi
     volumes:
-      - ./client/src:/client/src
+      - ./client/components:/client/components
+      - ./client/hooks:/client/hooks
+      - ./client/pages:/client/pages
       - ./client/public:/client/public
+      - ./client/styles:/client/styles
     ports:
       - 8080:8080
-    command: npm start
+    command: npm run dev
     restart: always
   urbexapi:
     container_name: urbexapi

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
-import GallerieImage from "../components/Gallerie/GallerieImage"
-import LazyLoadImages from "../components/Gallerie/LazyLoadImages"
+import GallerieImage from "../../components/Gallerie/GallerieImage"
+import LazyLoadImages from "../../components/Gallerie/LazyLoadImages"
 
 const Gallerie = () => {  
   const gallerie = useRef()

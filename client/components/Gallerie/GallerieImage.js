@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
 
 const GallerieImage = ({image}) => {
@@ -10,12 +10,14 @@ const GallerieImage = ({image}) => {
     rootMargin: '0px'
   });
 
-  return <Link className={`gallerie__images__item ${inView ? 'appear' : 'intersection-observer'}`} to={`/gallerie/${image.id}`} ref={ref}>
-    <div className="hover">
-      <p>{image.titre}</p>
-    </div>
-  
-    <img src={src} alt={image.titre}/>
+  return <Link href={`/gallerie/${image.id}`}>
+    <a className={`gallerie__images__item ${inView ? 'appear' : 'intersection-observer'}`} ref={ref}>
+      <div className="hover">
+        <p>{image.titre}</p>
+      </div>
+      
+      <img src={src} alt={image.titre}/>
+    </a>
   </Link>
 }
 

@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import Link from "next/link"
+import { useRouter } from "next/router"
 import Nav from "./Nav"
 
 const Header = () => {
   const [nav, setNav] = useState(false)
   
-  const location = useLocation()
+  const location = useRouter()
 
   const handleClick = useCallback(() => {
     setNav(nav => !nav)
@@ -19,10 +20,10 @@ const Header = () => {
   
   useEffect(() => {
     setNav(false)
-  }, [location.key])
+  }, [location])
   
   return <header>
-    <Link to="/">urbexctpm</Link>
+    <Link href="/">urbexctpm</Link>
     <div className={`burger ${nav ?'light' : ''}`} onClick={handleClick}>
       <div></div>
       <div></div>

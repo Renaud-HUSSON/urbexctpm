@@ -23,4 +23,7 @@ db.users = require('./User.model')(sequelize, Sequelize)
 db.category = require('./Category.model')(sequelize, Sequelize)
 db.images = require('./Image.model')(sequelize, Sequelize, db.category)
 
+db.category.hasMany(db.images, { foreignKey: 'categorieId' })
+db.images.belongsTo(db.category)
+
 module.exports = db

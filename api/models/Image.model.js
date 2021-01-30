@@ -1,4 +1,6 @@
-module.exports = (sequelize, Sequelize, Category) => {
+module.exports = (sequelize, Sequelize) => {
+  const Category = require('./Category.model')(sequelize, Sequelize)
+  
   const Image = sequelize.define('image', {
     titre: {
       type: Sequelize.STRING,
@@ -11,13 +13,6 @@ module.exports = (sequelize, Sequelize, Category) => {
     description: {
       type: Sequelize.STRING,
       allowNull: true
-    },
-    categorie: {
-      type: Sequelize.INTEGER,
-      references: {
-        model: Category,
-        key: 'id'
-      }
     }
   })
 

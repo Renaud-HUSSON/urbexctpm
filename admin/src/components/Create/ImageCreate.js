@@ -4,7 +4,7 @@ const ImageCreate = (props) => {
   return <Create {...props}>
     <SimpleForm>
       <TextInput label="Titre" source="titre"  validate={[required()]} resettable/>
-      <ReferenceInput label="Catégorie" source="categorie" reference="categories" allowEmpty>
+      <ReferenceInput label="Catégorie" source="categorieId" reference="categories" allowEmpty>
         <SelectInput source="categorie" optionText="titre" emptyText="Aucune catégorie"/>
       </ReferenceInput>
       <ImageInput label="Image" source="image" validate={[required()]} accept="image/*">

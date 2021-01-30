@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, NumberField, SimpleList, TextField } from "react-admin";
+import { Datagrid, DateField, EditButton, List, NumberField, SimpleList, TextField } from "react-admin";
 import { useMediaQuery } from '@material-ui/core';
 
 const ImagesList = props => {
@@ -15,11 +15,12 @@ const ImagesList = props => {
       :<Datagrid rowClick="edit">
           <TextField source="id" />
           <TextField source="titre" />
+          <TextField source="categorie.titre" label="Catégorie" />
           <TextField source="chemin" />
           <TextField source="description" />
-          <NumberField source="categorie" />
           <DateField source="createdAt" />
           <DateField source="updatedAt" />
+          <EditButton />
       </Datagrid>
     }
   </List>

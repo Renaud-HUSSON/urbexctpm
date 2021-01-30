@@ -25,7 +25,7 @@ const Gallerie = ({ imagesProps, limit }) => {
 }
 
 export async function getStaticProps(){
-  const LIMIT = 3
+  const LIMIT = 12
   
   const data = await fetch(`${process.env.BASE_API_URL}api/images?limit=${LIMIT}`)
   const json = await data.json()

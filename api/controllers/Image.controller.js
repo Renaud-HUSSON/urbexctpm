@@ -67,10 +67,12 @@ exports.findAll = (req, res) => {
   }
 
   Image.findAndCountAll({
+    attributes: ["id", "titre", "chemin", "description", "categorieId", "categorie.titre", "createdAt", "updatedAt"],
     order: [["id", "DESC"]],
     ...options,
     offset: page * imagesPerPage,
-    limit: imagesPerPage
+    limit: imagesPerPage,
+    include: [{model: db.category}]
   })
   .then(results => {
     return res.set('Content-Range', `${page * imagesPerPage}-${imagesPerPage * (page + 1) > results.count ? results.count : imagesPerPage * (page + 1)}/${results.count}`).send({
@@ -95,7 +97,8 @@ exports.findById = (req, res) => {
   Image.findOne({
     where: {
       id: id
-    }
+    },
+    include: [{model: db.category,}]
   })
   .then(results => {
     if(!results){

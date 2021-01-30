@@ -1,4 +1,4 @@
-import { Datagrid, DateField, EmailField, List, SimpleList, TextField } from "react-admin"
+import { Datagrid, DateField, EditButton, EmailField, List, SimpleList, TextField } from "react-admin"
 import { useMediaQuery } from '@material-ui/core';
 
 const UsersList = (props) => {
@@ -19,6 +19,7 @@ const UsersList = (props) => {
           <TextField source="password" />
           <DateField source="createdAt" />
           <DateField source="updatedAt" />
+          <EditButton />
         </Datagrid>
       }
   </List>

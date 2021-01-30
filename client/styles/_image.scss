@@ -13,6 +13,16 @@ section.image-details {
 
   div {
     width: 45%;
+
+    p {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    pre {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
   }
 }
 

@@ -11,6 +11,7 @@ const ImageDetails = ({image}) => {
     </picture>
     <div>
       <h1>{image.titre}</h1>
+      <p>Catégorie: {image.categorie.titre || "Aucune"}</p>
       <pre>{image.description}</pre>
     </div>
   </section>

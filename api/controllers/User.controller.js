@@ -6,7 +6,7 @@ const User = db.users
 //Creates a user in the database
 exports.create = async (req, res) => {
   //verify request's body
-  if(!req.body.email || !req.body.password || !req.body.username){
+  if(!req.body.email || !req.body.password || !req.body.username || !req.body.roleId){
     return res.status(400).send({
       sucess: false,
       message: "Vous devez remplir tous les champs"
@@ -38,7 +38,8 @@ exports.create = async (req, res) => {
   return User.create({
     username: req.body.username,
     email: req.body.email,
-    password: hashedPassword
+    password: hashedPassword,
+    roleId: req.body.roleId
   })
   .then(data => {
     return {
@@ -83,7 +84,8 @@ exports.findAll = (req, res) => {
   User.findAndCountAll({
     ...options,
     offset: page * imagesPerPage,
-    limit: imagesPerPage
+    limit: imagesPerPage,
+    include: [db.roles]
   })
   .then(results => {
     return res.set('Content-Range', `${page * imagesPerPage}-${imagesPerPage * (page + 1) > results.count ? results.count : imagesPerPage * (page + 1)}/${results.count}`).send({
@@ -96,7 +98,7 @@ exports.findAll = (req, res) => {
   .catch(e => {
     res.status(500).send({
       success: false,
-      message: `Error while fetching all users: ${e}`
+      message: `Une erreur est survenue lors de la récupération des utilisateurs: ${e}`
     })
   })
 }
@@ -108,7 +110,8 @@ exports.findById = (req, res) => {
   User.findOne({
     where: {
       id: id
-    }
+    },
+    include: [db.roles]
   })
   .then(results => {
     if(!results){
@@ -198,7 +201,8 @@ exports.findByUsername = (username) => {
     User.findOne({
       where: {
         username: username
-      }
+      },
+      include: [db.roles]
     })
     .then(results => {
       if(results.length === 0){
@@ -228,7 +232,8 @@ exports.findByEmail = (email) => {
     User.findOne({
       where: {
         email: email
-      }
+      },
+      include: [db.roles]
     })
     .then(results => {
       if(!results){

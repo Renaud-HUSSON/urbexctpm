@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const passport = require('passport')
+const { findAll } = require('../controllers/Role.controller')
 const { findByEmail, create } = require('../controllers/User.controller')
 const { generateAccessToken } = require('../utils/generateToken')
 
@@ -80,5 +82,7 @@ router.get('/authenticated', async (req, res) => {
 router.get('/logout', (req, res) => {
   return res.cookie('access_token', '', {maxAge: 0}).send()
 })
+
+router.get('/roles', passport.authenticate('jwt', { session: false }) ,findAll)
 
 module.exports = router

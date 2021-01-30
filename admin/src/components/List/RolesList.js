@@ -1,25 +1,24 @@
-import { Datagrid, DateField, EditButton, List, SimpleList, TextField } from "react-admin";
+import { Datagrid, DateField, List, SimpleList, TextField } from "react-admin"
 import { useMediaQuery } from '@material-ui/core';
 
-const CategoriesList = props => {
+const RolesList = (props) => {
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
   
   return <List {...props}>
     {
       isSmall
       ?<SimpleList
-          primaryText={record => record.titre}
+          primaryText={record => record.nom}
           tertiaryText={record => new Date(record.createdAt).toLocaleDateString()}
         />
-      :<Datagrid rowClick="edit">
+      :<Datagrid>
         <TextField source="id" />
-        <TextField source="titre" />
+        <TextField source="nom" />
         <DateField source="createdAt" />
         <DateField source="updatedAt" />
-        <EditButton />
-    </Datagrid>
+      </Datagrid>
     }
-  </List>
+</List>
 }
 
-export default CategoriesList
+export default RolesList

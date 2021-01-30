@@ -10,7 +10,7 @@ const ImagesList = props => {
       isSmall
       ?<SimpleList
           primaryText={record => record.titre}
-          secondaryText={record => `${record.description} views`}
+          secondaryText={record => `${record.description}`}
           tertiaryText={record => new Date(record.createdAt).toLocaleDateString()}
         />
       :<Datagrid rowClick="edit">

@@ -6,7 +6,7 @@ const ImagesEdit = (props) => {
       <TextInput disabled label="id" source="id"/>
       <TextInput label="Titre" source="titre"  validate={[required()]} resettable/>
       <ReferenceInput label="Catégorie" source="categorieId" reference="categories" allowEmpty>
-        <SelectInput source="categorie" optionText="titre" emptyText="Aucune catégorie"/>
+        <SelectInput optionText="titre" emptyText="Aucune catégorie"/>
       </ReferenceInput>
       <ImageField label="Ancienne image" source="chemin" title="titre" />
       <ImageInput label="Image" source="image" accept="image/*">

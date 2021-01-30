@@ -38,7 +38,7 @@ exports.findAll = (req, res) => {
   const order = req.query.order
 
   const page = req.query.page - 1 || 0
-  const imagesPerPage = req.query.limit ? parseInt(req.query.limit) : 18
+  const imagesPerPage = 1000
 
   //Options for the database query
   const options = {}

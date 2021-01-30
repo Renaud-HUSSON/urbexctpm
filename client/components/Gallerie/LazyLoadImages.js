@@ -2,9 +2,16 @@ import { useEffect, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import Loading from "../shared/Loading"
 
-const LazyLoadImages = ({setImages, images, limit}) => {  
+const LazyLoadImages = ({setImages, images, limit, category}) => {  
   //Used to prevent multipile images calls to the api for nothing on the first render
   const [initialRender, setInitialRender] = useState(true)
+
+  useEffect(() => {
+    setPagination({
+      page: 1,
+      allLoaded: false
+    })
+  }, [category])
   
   const [pagination, setPagination] = useState({
     //make the page 2 because the first one is statically generated
@@ -19,7 +26,13 @@ const LazyLoadImages = ({setImages, images, limit}) => {
   useEffect(() => {
     //Run it only if the Loading component is visible, if it isn't the first render, and if all images have not been already loaded
     if(inView && !initialRender && !pagination.allLoaded){
-      fetch(`/api/images?limit=${limit}&page=${pagination.page}&fields=["id", "chemin", "titre"]`)
+      let url = `/api/images?limit=${limit}&page=${pagination.page}&fields=["id", "chemin", "titre"]`
+
+      if(category !== ''){
+        url += `&filter={categorieId: ${category}}`
+      }
+
+      fetch(url)
       .then(data => data.json())
       .then(json => {
         setPagination(pagination => {

@@ -7,7 +7,7 @@ const BASE_URL = '/api/'
 const customDataProvider = {
   ...dataProvider,
   getList: async (ressource, params) => {
-    const url = `${BASE_URL}${ressource}?page=${params.pagination.page}&limit=${params.pagination.perPage}&order=[["${params.sort.field}", "${params.sort.order}"]]`
+    const url = `${BASE_URL}${ressource}?page=${params.pagination.page}&limit=${params.pagination.perPage}&order=[["${params.sort.field}", "${params.sort.order}"]]&filter=${JSON.stringify(params.filter)}`
     
     const data = await fetch(url)
     const json = await data.json()

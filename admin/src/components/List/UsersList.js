@@ -16,7 +16,6 @@ const UsersList = (props) => {
           <TextField source="id" />
           <TextField source="username" />
           <EmailField source="email" />
-          <TextField source="password" />
           <DateField source="createdAt" />
           <DateField source="updatedAt" />
           <EditButton />

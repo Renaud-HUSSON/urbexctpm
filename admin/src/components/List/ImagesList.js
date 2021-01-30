@@ -1,10 +1,11 @@
-import { Datagrid, DateField, EditButton, List, NumberField, SimpleList, TextField } from "react-admin";
+import { Datagrid, DateField, EditButton, List, SimpleList, TextField } from "react-admin";
 import { useMediaQuery } from '@material-ui/core';
+import ImagesFilter from "../Filter/ImagesFilter";
 
 const ImagesList = props => {
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
   
-  return <List {...props}>
+  return <List filters={<ImagesFilter />} {...props}>
     {
       isSmall
       ?<SimpleList

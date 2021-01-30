@@ -16,7 +16,11 @@ const GallerieImage = ({image}) => {
         <p>{image.titre}</p>
       </div>
       
-      <img src={src} alt={image.titre}/>
+      <picture>
+      <source media="(max-width: 1280px)" srcSet={src}/>
+      <source media="(min-width: 1281px)" srcSet={image.chemin}/>
+        <img src={src} alt={image.titre}/>
+      </picture>
     </a>
   </Link>
 }

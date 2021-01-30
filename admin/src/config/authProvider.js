@@ -2,7 +2,7 @@ const BASE_URL = '/api/auth/'
 
 const authProvider = {
   login: async ({username, password}) => {
-    const request  = new Request(`${BASE_URL}login`, {
+    const request  = new Request(`${BASE_URL}login?role=admin`, {
       method: 'POST',
       body: JSON.stringify({email: username, password}),
       headers: new Headers({ 'Content-Type': 'application/json' }),

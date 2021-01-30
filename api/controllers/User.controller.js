@@ -227,12 +227,18 @@ exports.findByUsername = (username) => {
 }
 
 //Finds a user by his email
-exports.findByEmail = (email) => {
+exports.findByEmail = (email, role = '') => {
   return new Promise(resolve => {
+    const where = {
+      email: email
+    }
+
+    if(role !== ''){
+      where['$role.nom$'] = role
+    }
+    
     User.findOne({
-      where: {
-        email: email
-      },
+      where,
       include: [db.roles]
     })
     .then(results => {

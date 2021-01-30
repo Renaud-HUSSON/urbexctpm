@@ -15,8 +15,10 @@ router.post('/login', async (req, res) => {
     })
   }
 
+  const role = req.query.role || ''
+
   //Fetch the user by its email address
-  const result = await findByEmail(req.body.email)
+  const result = await findByEmail(req.body.email, role)
 
   if(!result.success){
     return res.status(400).send(result)

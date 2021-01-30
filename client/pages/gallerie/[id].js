@@ -2,25 +2,39 @@ import Loading from "../../components/shared/Loading"
 import useGetData from '../../hooks/useGetData'
 import { useRouter } from 'next/router'
 
-const ImageDetails = () => {
-  const id = useRouter().query.id
-  const url = `/api/images/${id}`
-
-  const image = useGetData(url)
-
-  return !image.loading
-  ?<section className="image-details">
+const ImageDetails = ({image}) => {
+  return <section className="image-details">
     <picture>
-      <source media="(min-width: 421px)" srcSet={image.data.data.chemin}/>
-      <source media="(max-width: 420px)" srcSet={image.data.data.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
-      <img src={image.data.data.chemin} alt={image.data.data.titre}/>
+      <source media="(min-width: 421px)" srcSet={image.chemin}/>
+      <source media="(max-width: 420px)" srcSet={image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
+      <img src={image.chemin} alt={image.titre}/>
     </picture>
     <div>
-      <h1>{image.data.data.titre}</h1>
-      <pre>{image.data.data.description}</pre>
+      <h1>{image.titre}</h1>
+      <pre>{image.description}</pre>
     </div>
   </section>
-  :<Loading />
+}
+
+export async function getStaticPaths(){
+  const data = await fetch(`${process.env.BASE_API_URL}api/images?limit=1000000&fields=["id"]`)
+  const json = await data.json()
+
+  const paths = json.data.map(item => ({ params: { id: item.id.toString() } }))
+
+  return { paths, fallback: false }
+}
+
+export async function getStaticProps({ params }){
+  const data = await fetch(`${process.env.BASE_API_URL}api/images/${params.id}`)
+  const json = await data.json()
+
+  return {
+    props: {
+      image: json.data
+    },
+    revalidate: 1
+  }
 }
 
 export default ImageDetails

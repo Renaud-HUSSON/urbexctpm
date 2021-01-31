@@ -17,7 +17,7 @@ const UsersList = (props) => {
           <TextField source="id" />
           <TextField source="username" />
           <EmailField source="email" />
-          <TextField source="role.nom" label="Role" />
+          <TextField source="role.nom" label="Role" sortable={false} />
           <DateField source="createdAt" />
           <DateField source="updatedAt" />
           <EditButton />

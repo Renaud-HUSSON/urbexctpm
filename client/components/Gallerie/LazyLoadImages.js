@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useInView } from "react-intersection-observer"
 import Loading from "../shared/Loading"
 
 const LazyLoadImages = ({setImages, images, limit, category}) => {  
   //Used to prevent multipile images calls to the api for nothing on the first render
-  const [initialRender, setInitialRender] = useState(true)
+  const initialRender = useRef(true)
 
   useEffect(() => {
+    if(initialRender.current){
+      initialRender.current = false
+      return
+    }
+    
     setPagination({
       page: 1,
       allLoaded: false
@@ -24,8 +29,13 @@ const LazyLoadImages = ({setImages, images, limit, category}) => {
   })
   
   useEffect(() => {
-    //Run it only if the Loading component is visible, if it isn't the first render, and if all images have not been already loaded
-    if(inView && !initialRender && !pagination.allLoaded){
+    if(initialRender.current){
+      initialRender.current = false
+      return
+    }
+    
+    //Run it only if the Loading component is visible and if all images have not been already loaded
+    if(inView && !pagination.allLoaded){
       let url = `/api/images?limit=${limit}&page=${pagination.page}&fields=["id", "chemin", "titre"]`
 
       if(category !== ''){
@@ -43,8 +53,6 @@ const LazyLoadImages = ({setImages, images, limit, category}) => {
         })
         setImages(images => [...images, ...json.data])
       })
-    }else{
-      setInitialRender(false)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])

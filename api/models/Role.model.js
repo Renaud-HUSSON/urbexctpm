@@ -6,8 +6,10 @@ module.exports = (sequelize, Sequelize) => {
     }
   })
 
-  Role.create({ id: 1, nom: "user" })
-  Role.create({ id: 2, nom: "admin" })
+  try {
+    Role.create({ id: 1, nom: "user" })
+    Role.create({ id: 2, nom: "admin" })
+  }catch(e){}
   
   return Role
 }

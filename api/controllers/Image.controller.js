@@ -43,6 +43,10 @@ exports.create = async (req, res) => {
 
 //Retrieves all images
 exports.findAll = (req, res) => {
+  console.log('-------------------------------------------')
+  console.log('----------------FIND ALL-------------------')
+  console.log('-------------------------------------------')
+  
   //Get params from the query to give options to the request
   const filter = req.query.filter
   const fields = req.query.fields

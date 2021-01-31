@@ -5,12 +5,18 @@ import LazyLoadImages from "../../components/Gallerie/LazyLoadImages"
 import Loading from "../../components/shared/Loading"
 
 const Gallerie = ({ imagesProps, limit, categoriesProps }) => {    
+  const initialRender = useRef(true)
   const gallerie = useRef()
 
   const [images, setImages] = useState(imagesProps)
   const [category, setCategory] = useState('')
-
+  
   useEffect(() => {
+    if(initialRender.current){
+      initialRender.current = false
+      return
+    }
+    
     setImages([])
   }, [category])
 

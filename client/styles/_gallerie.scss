@@ -85,8 +85,11 @@ section.gallerie {
       font-size: 2rem;
     }
 
-    > span {
+    > div {
       margin-top: 3rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
   }
 
@@ -103,6 +106,14 @@ section.gallerie {
 
     .gallerie__images {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallerie__not-found {
+      padding: 0;
+
+      p {
+        text-align: center;
+      }
     }
   }
 }

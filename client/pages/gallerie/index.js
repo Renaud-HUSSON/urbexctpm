@@ -34,10 +34,7 @@ const Gallerie = ({ imagesProps, limit, categoriesProps }) => {
           })
         }
       </div>
-      :<div className="gallerie__not-found">
-        <p>Aucune image n'a été trouvé</p>
-        <Loading />
-      </div>
+      :<></>
     }
     <LazyLoadImages setImages={setImages} limit={limit} images={images} category={category}/>
   </section>

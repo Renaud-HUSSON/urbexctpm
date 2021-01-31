@@ -13,10 +13,11 @@ import UserIcon from '@material-ui/icons/Group';
 import RoleIcon from '@material-ui/icons/SupervisedUserCircle';
 import UserEdit from './components/Edit/UserEdit';
 import RolesList from './components/List/RolesList';
+import CustomLayout from './components/Custom/CustomLayout';
 
 function App() {
   return (
-    <Admin title="TEST" authProvider={authProvider} dataProvider={dataProvider}>
+    <Admin title="TEST" layout={CustomLayout} authProvider={authProvider} dataProvider={dataProvider}>
       <Resource name="images" list={ImagesList} create={ImageCreate} edit={ImagesEdit} icon={PhotoIcon}/>
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>

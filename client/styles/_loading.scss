@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   height: 50px;
+  width: 75px;
   
 	&:before, 
 	&:after,
@@ -15,17 +16,17 @@
 		border-radius: 50px;
 		border: 0px solid var(--black);
 		position: absolute;
-    left: 0;
+    left:25px;
     top: 0;
 		animation: shatter 2.3s ease-in-out infinite;
 		animation-delay: -.66s;
 	}
 	span{
-    left: 50px;
+    left: 0;
 		animation-delay: 0s;
   }
   &:after{
-    left: 25px;
+    left: 50px;
     animation-delay: -.33s;
   }
   

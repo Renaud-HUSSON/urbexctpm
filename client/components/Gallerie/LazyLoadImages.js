@@ -25,7 +25,7 @@ const LazyLoadImages = ({setImages, images, limit, category}) => {
   })
   
   const { ref, inView } = useInView({
-    threshold: 1
+    threshold: 0.01
   })
   
   useEffect(() => {
@@ -56,12 +56,23 @@ const LazyLoadImages = ({setImages, images, limit, category}) => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
-  
+
   return !pagination.allLoaded
     ?<div className="gallerie-loading" ref={ref}>
-      <Loading />
-    </div>
-    :<></>
+        <Loading />
+      </div>
+    :<>
+      {
+        images.length === 0
+        ?<div className="gallerie__not-found">
+          <p>Aucune image n'a été trouvé</p>
+          <div>
+            <Loading />
+          </div>
+        </div>
+        :<></>
+      }
+    </>
 }
 
 export default LazyLoadImages

@@ -35,6 +35,7 @@ services:
       - ./api/auth:/api/auth
       - ./api/images:/api/images:rw
       - ./api/utils:/api/utils
+      - ./api/middlewares:/api/middlewares
     command: npm run watch
     restart: always
   urbexdb:

@@ -15,6 +15,8 @@ import UserEdit from './components/Edit/UserEdit';
 import RolesList from './components/List/RolesList';
 import CustomLayout from './components/Custom/CustomLayout';
 import NewsletterCreate from './components/Create/NewsletterCreate';
+import EmailIcon from '@material-ui/icons/Email';
+import NewsletterList from './components/List/NewsletterList';
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>
       <Resource name="roles" list={RolesList} icon={RoleIcon} />
-      <Resource name="newsletter" list={ListGuesser} create={NewsletterCreate}/>
+      <Resource name="newsletter" list={NewsletterList} create={NewsletterCreate} icon={EmailIcon}/>
     </Admin>
   );
 }

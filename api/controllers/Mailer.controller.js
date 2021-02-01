@@ -2,6 +2,8 @@ const db = require("../models/Database")
 const Mailer = require('../models/Mailer')
 
 exports.sendNewsletterMail = (req, res) => {
+  console.log(req.body)
+  
   const body = req.body.body
   const header = req.body.header
 

@@ -158,8 +158,6 @@ exports.update = async (req, res) => {
       body[item] = null
     }
   }
-
-  console.log(body)
   
   Image.update(body, {
     where: {

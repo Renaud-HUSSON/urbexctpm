@@ -8,8 +8,8 @@ const { deleteImage } = require('../utils/images')
 
 router.get('/', findAll)
 router.get('/:id', findById)
-router.post('/', passport.authenticate('jwt', { session: false }), create)
-router.patch('/:id', passport.authenticate('jwt', { session: false }), update)
-router.delete('/', passport.authenticate('jwt', { session: false }), deleteById)
+router.post('/', [adminRoute, passport.authenticate('jwt', { session: false }), create])
+router.patch('/:id', [adminRoute, passport.authenticate('jwt', { session: false }), update])
+router.delete('/', [adminRoute, passport.authenticate('jwt', { session: false }), deleteById])
 
 module.exports = router

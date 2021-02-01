@@ -27,7 +27,7 @@ const authProvider = {
     // other error code (404, 500, etc): no need to log out
     return Promise.resolve();
 },
-  checkAuth: (params) => {
+  checkAuth: (_params) => {
     const request = new Request(`${BASE_URL}authenticated`)
 
     return new Promise(async (resolve, reject) => {
@@ -55,9 +55,19 @@ const authProvider = {
   getIdentity: () => {
     return Promise.resolve()
   },
-  getPermissions: (params) => {
-    //No permissions, either the user is connected or he isn't, role based authentication will come later
-    return Promise.resolve()
+  getPermissions: (_params) => {
+    const request = new Request(`${BASE_URL}authorized?role=admin`)    
+
+    return new Promise(async (resolve, reject) => {
+      const data = await fetch(request)
+      const json = await data.json()
+
+      if(!json.success){
+        return reject()
+      }
+
+      return resolve()
+    })
   }
 }
 

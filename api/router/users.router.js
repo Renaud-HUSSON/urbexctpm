@@ -1,10 +1,11 @@
 const router = require('express').Router()
 const passport = require('passport')
 const { findAll, findById, create, update, deleteById } = require('../controllers/User.controller')
+const adminRoute = require('../middlewares/adminRoute')
 
-router.get('/', passport.authenticate('jwt', { session: false }), findAll)
-router.get('/:id', passport.authenticate('jwt', { session: false }), findById)
-router.put('/', passport.authenticate('jwt', { session: false }), () => {
+router.get('/', [adminRoute, passport.authenticate('jwt', { session: false }), findAll])
+router.get('/:id', [adminRoute, passport.authenticate('jwt', { session: false }), findById])
+router.post('/', passport.authenticate('jwt', { session: false }), () => {
   create()
 
   return res.send({
@@ -13,6 +14,6 @@ router.put('/', passport.authenticate('jwt', { session: false }), () => {
   })
 })
 router.patch('/:id', passport.authenticate('jwt', { session: false }), update)
-router.delete('/', passport.authenticate('jwt', { session: false }), deleteById)
+router.delete('/', [adminRoute, passport.authenticate('jwt', { session: false }), deleteById])
 
 module.exports = router

@@ -1,9 +1,12 @@
 const JwtStrategy = require('passport-jwt').Strategy
-const ExtractJwt = require('passport-jwt').ExtractJwt
 const db = require('../models/Database')
 const User = db.users
 
+var role
+
 const jwtExtractor = req => {
+  role = req.headers.role ? req.headers.role : ''
+  
   if(!req.cookies.access_token){
     return null
   }
@@ -17,10 +20,19 @@ const options = {
 }
 
 const verifyCallback = (payload, done) => {
+  const where = {
+    id: payload.sub
+  }
+  
+  if(role !== ''){
+    where['$role.nom$'] = role
+  }
+  
+  console.log(where)
+  
   User.findOne({
-    where: {
-      id: payload.sub
-    }
+    where: where,
+    include: [db.roles]
   })
   .then(user => {
     if(user){

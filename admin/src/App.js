@@ -1,4 +1,4 @@
-import { Admin, Resource } from 'react-admin'
+import { Admin, ListGuesser, Resource } from 'react-admin'
 import dataProvider from './config/dataProvider';
 import ImagesList from './components/List/ImagesList';
 import CategoriesList from './components/List/CategoriesList'
@@ -14,6 +14,7 @@ import RoleIcon from '@material-ui/icons/SupervisedUserCircle';
 import UserEdit from './components/Edit/UserEdit';
 import RolesList from './components/List/RolesList';
 import CustomLayout from './components/Custom/CustomLayout';
+import NewsletterCreate from './components/Create/NewsletterCreate';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>
       <Resource name="roles" list={RolesList} icon={RoleIcon} />
+      <Resource name="newsletter" list={ListGuesser} create={NewsletterCreate}/>
     </Admin>
   );
 }

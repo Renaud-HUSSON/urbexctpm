@@ -70,7 +70,7 @@ router.get('/authenticated', async (req, res) => {
   const access_token = req.cookies.access_token
   
   if(!access_token){
-    return res.send({
+    return res.status(403).send({
       success: false,
       message: 'Vous devez vous connecter pour accèder à cette ressource'
     })
@@ -85,7 +85,7 @@ router.get('/authenticated', async (req, res) => {
   }catch(err){
     res.cookie('access_token', '', {maxAge: 0})
     
-    return res.send({
+    return res.status(401).send({
       success: false,
       message: `Le JWT est invalide: ${err}`
     })
@@ -132,7 +132,7 @@ router.get('/authorized', (req, res) => {
   }
 })
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (_req, res) => {
   return res.cookie('access_token', '', {maxAge: 0}).send({
     success: true,
     message: 'Vous avez été déconnecté avec succès'

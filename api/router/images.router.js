@@ -1,10 +1,8 @@
-const multer  = require('multer')()
-
 const { create, findAll, findById, update, deleteById } = require('../controllers/Image.controller')
 
 const router = require('express').Router()
 const passport = require('passport')
-const { deleteImage } = require('../utils/images')
+const adminRoute = require('../middlewares/adminRoute')
 
 router.get('/', findAll)
 router.get('/:id', findById)

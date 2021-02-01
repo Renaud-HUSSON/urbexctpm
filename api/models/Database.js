@@ -30,4 +30,6 @@ db.images.belongsTo(db.category)
 db.roles.hasMany(db.users, { foreignKey: 'roleId' })
 db.users.belongsTo(db.roles)
 
+db.newsletter = require('./Newsletter.model')(sequelize, Sequelize)
+
 module.exports = db

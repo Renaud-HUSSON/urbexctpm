@@ -1,10 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const passport = require('passport')
-const { findAll } = require('../controllers/Role.controller')
 const { findByEmail, create } = require('../controllers/User.controller')
 const { generateAccessToken } = require('../utils/generateToken')
-
+const { findByName } = require('../controllers/Role.controller')
 const router = require('express').Router()
 
 router.post('/login', async (req, res) => {
@@ -34,7 +32,7 @@ router.post('/login', async (req, res) => {
     })
   }
 
-  const accessToken = generateAccessToken({sub: result.data.id})
+  const accessToken = generateAccessToken({sub: result.data.id, role: result.data.role.nom})
 
   return res.cookie('access_token', accessToken, {httpOnly: true}).send({
     success: true,
@@ -44,18 +42,32 @@ router.post('/login', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-  const results = await create(req, res)
+  const role = await findByName('user')
 
-  const accessToken = generateAccessToken({sub: results.data})
+  if(!role.success){
+    return res.status(500).send({
+      success: false,
+      data: 'Le compte ne peut pas être créé actuellement'
+    })
+  }
 
-  return res.cookie('access_token', accessToken, {httpOnly: true}).send({
-    success: true,
-    message: 'Votre compte a bien été créé',
-    accessToken: accessToken
-  })
+  //Put the roleId in res body to then access it in the controller
+  req.body.roleId = role.data
+  
+  try {
+    const results = await create(req, res)
+    const accessToken = generateAccessToken({sub: results.data, role: 'user'})
+  
+    return res.cookie('access_token', accessToken, {httpOnly: true}).send({
+      success: true,
+      message: 'Votre compte a bien été créé',
+      accessToken: accessToken
+    })
+  }catch(e){}
 })
 
 router.get('/authenticated', async (req, res) => {
+  const role = req.query.role
   const access_token = req.cookies.access_token
   
   if(!access_token){
@@ -66,7 +78,11 @@ router.get('/authenticated', async (req, res) => {
   }
 
   try {
-    const token = jwt.verify(access_token, process.env.JWT_SECRET)
+    jwt.verify(access_token, process.env.JWT_SECRET)
+    
+    return res.send({
+      success: true
+    })  
   }catch(err){
     res.cookie('access_token', '', {maxAge: 0})
     
@@ -76,9 +92,6 @@ router.get('/authenticated', async (req, res) => {
     })
   }
   
-  return res.send({
-    success: true,
-  })  
 })
 
 router.get('/logout', (req, res) => {

@@ -47,3 +47,30 @@ exports.findAll = (req, res) => {
     })
   })
 }
+
+exports.findByName = (nom) => {
+  return Role.findOne({
+    where: {
+      nom: nom
+    }
+  })
+  .then(results => {
+    if(results.lenght === 0){
+      return {
+        success: false,
+        message: 'Impossible de trouver le role'
+      }
+    }
+    
+    return {
+      success: true,
+      data: results.dataValues.id
+    }
+  })
+  .catch(err => {
+    return {
+      success: false,
+      message:`Une erreur est survenue lors de la récupération des roles: ${err}`
+    }
+  })
+}

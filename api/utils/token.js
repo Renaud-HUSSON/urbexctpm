@@ -28,8 +28,11 @@ exports.verifyRefreshToken = (token) => {
  * 
  */
 exports.generateAccessToken = (data) => {
+  console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+  console.log(data)
+  
   return jwt.sign(data, process.env.JWT_ACCESS_TOKEN_SECRET, {
-    expiresIn: '300s'
+    expiresIn: '3s'
   })
 }
 
@@ -90,15 +93,17 @@ exports.verifyRefreshTokenAndCreateAccessToken = (token, role) => {
       include: [{model: db.users, include: [db.roles]}]
     })
   
-    console.log(verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom)
+    if(!verifiedToken){
+      return reject()
+    }
     
     if(verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom !== role && verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom !== 'admin'){
       return reject()
     }
   
     const generatedAccessToken = this.generateAccessToken({
-      sub: verifiedToken.sub,
-      role: verifiedToken.role
+      sub: verifiedToken.dataValues.utilisateur.id,
+      role: verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom
     })
   
     return resolve(generatedAccessToken)

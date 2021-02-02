@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { findByEmail, create } = require('../controllers/User.controller')
 const { findByName } = require('../controllers/Role.controller')
-const { generateRefreshToken, generateAccessToken } = require('../utils/token')
+const { generateRefreshToken, generateAccessToken, verifyRefreshTokenAndCreateAccessToken, verifyAccessToken } = require('../utils/token')
 const router = require('express').Router()
 
 router.post('/login', async (req, res) => {
@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 
   if(req.body.refresh === true){
     try {
-      const refreshToken = generateRefreshToken({sub: results.data, role: 'user'})
+      const refreshToken = generateRefreshToken({sub: result.data.dataValues.id, role: 'user'})
       res.cookie('refresh_token', refreshToken)
     }catch(e){}
   }
@@ -83,35 +83,64 @@ router.post('/register', async (req, res) => {
 })
 
 router.get('/authenticated', async (req, res) => {
+  const refresh_token = req.cookies.refresh_token
   const access_token = req.cookies.access_token
   
   if(!access_token){
-    return res.status(403).send({
-      success: false,
-      message: 'Vous devez vous connecter pour accèder à cette ressource'
-    })
-  }
+    if(!refresh_token){
+      return res.status(403).send({
+        success: false,
+        message: 'Vous devez vous connecter pour accèder à cette ressource'
+      })
+    }
 
-  try {
-    jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
-    
-    return res.send({
-      success: true
-    })  
-  }catch(err){
-    res.cookie('access_token', '', {maxAge: 0})
-    
-    return res.status(401).send({
-      success: false,
-      message: `Le JWT est invalide: ${err}`
+    console.log('REFRESH_TOKEN: ', refresh_token)
+    return verifyRefreshTokenAndCreateAccessToken(refresh_token)
+    .then(accessToken => {
+      return res.cookie('access_token', accessToken).send({success: true})
     })
+    .catch(() => {
+      return res.status(401).send({
+        success: false,
+        message: `Veuillez vous reconnecter`
+      })
+    })
+  }else{
+    try {
+      jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
+      
+      return res.send({
+        success: true
+      })  
+    }catch(err){
+      res.cookie('access_token', '', {maxAge: 0})
+      
+      if(refresh_token){
+        console.log('REFRESH_TOKEN: ', refresh_token)
+        return verifyRefreshTokenAndCreateAccessToken(refresh_token)
+        .then(accessToken => {
+          return res.cookie('access_token', accessToken).send({success: true})
+        })
+        .catch(() => {
+          return res.status(401).send({
+            success: false,
+            message: `Veuillez vous reconnecter`
+          })
+        })
+      }
+      
+      return res.status(401).send({
+        success: false,
+        message: `Le JWT est invalide: ${err}`
+      })
+    }
   }
-  
 })
 
 router.get('/authorized', (req, res) => {
   const role = req.query.role
   const access_token = req.cookies.access_token
+  const refresh_token = req.cookies.refresh_token
 
   if(!role){
     return res.status(400).send({
@@ -121,14 +150,27 @@ router.get('/authorized', (req, res) => {
   }
 
   if(!access_token){
-    return res.status(403).send({
-      success: false,
-      message: "Vous n'avez pas le droit d'accèder à cette ressource"
+    if(!refresh_token){
+      return res.status(403).send({
+        success: false,
+        message: "Vous n'avez pas le droit d'accèder à cette ressource"
+      })
+    }
+    
+    return verifyRefreshTokenAndCreateAccessToken(refresh_token)
+    .then(accessToken => {
+      return res.cookie('access_token', accessToken).send({success: true})
+    })
+    .catch(() => {
+      return res.status(401).send({
+        success: false,
+        message: "Vous n'avez pas le droit d'accèder à cette ressource"
+      })
     })
   }
 
   try {
-    const payload = jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
+    const payload = verifyAccessToken(access_token)
 
     if(payload.role !== role && payload.role !== 'admin'){
       return res.status(403).send({
@@ -141,6 +183,19 @@ router.get('/authorized', (req, res) => {
       success: true
     })
   }catch(err){
+    if(refresh_token){
+      return verifyRefreshTokenAndCreateAccessToken(refresh_token)
+      .then(accessToken => {
+        return res.cookie('access_token', accessToken).send({success: true})
+      })
+      .catch(() => {
+        return res.status(401).send({
+          success: false,
+          message: "Vous n'avez pas le droit d'accèder à cette ressource"
+        })
+      })
+    }
+    
     return res.status(500).send({
       success: false,
       message: `Une erreur est survenue lors de la vérification du JWT: ${err}`

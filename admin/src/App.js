@@ -17,10 +17,11 @@ import CustomLayout from './components/Custom/CustomLayout';
 import NewsletterCreate from './components/Create/NewsletterCreate';
 import EmailIcon from '@material-ui/icons/Email';
 import NewsletterList from './components/List/NewsletterList';
+import LoginPage from './components/Custom/LoginPage';
 
 function App() {
   return (
-    <Admin title="TEST" layout={CustomLayout} authProvider={authProvider} dataProvider={dataProvider}>
+    <Admin loginPage={LoginPage} title="TEST" layout={CustomLayout} authProvider={authProvider} dataProvider={dataProvider}>
       <Resource name="images" list={ImagesList} create={ImageCreate} edit={ImagesEdit} icon={PhotoIcon}/>
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>

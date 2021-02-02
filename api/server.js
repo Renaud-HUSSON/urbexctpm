@@ -2,13 +2,8 @@ require('dotenv').config()
 const Router = require('./router/index')
 const express = require('express')
 const cookieParser = require('cookie-parser')
-const passport = require('passport')
 
 const app = express()
-
-//Use passport configuration
-require('./auth/Strategy')(passport)
-passport.initialize()
 
 //Use static/images as static folder
 app.use('/images', express.static(__dirname + '/images'))

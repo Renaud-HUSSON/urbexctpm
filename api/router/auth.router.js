@@ -76,11 +76,7 @@ router.post('/register', async (req, res) => {
       message: 'Votre compte a bien été créé',
       accessToken: accessToken
     })
-  }catch(e){
-    console.log("-----------------------------------")
-    console.log(e)
-    console.log("-----------------------------------")
-  }
+  }catch(e){}
 })
 
 router.get('/authenticated', async (req, res) => {
@@ -95,7 +91,6 @@ router.get('/authenticated', async (req, res) => {
       })
     }
 
-    console.log('REFRESH_TOKEN: ', refresh_token)
     return verifyRefreshTokenAndCreateAccessToken(refresh_token)
     .then(accessToken => {
       return res.cookie('access_token', accessToken).send({success: true})
@@ -117,7 +112,6 @@ router.get('/authenticated', async (req, res) => {
       res.cookie('access_token', '', {maxAge: 0})
       
       if(refresh_token){
-        console.log('REFRESH_TOKEN: ', refresh_token)
         return verifyRefreshTokenAndCreateAccessToken(refresh_token)
         .then(accessToken => {
           return res.cookie('access_token', accessToken).send({success: true})

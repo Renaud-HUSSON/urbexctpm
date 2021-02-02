@@ -28,11 +28,8 @@ exports.verifyRefreshToken = (token) => {
  * 
  */
 exports.generateAccessToken = (data) => {
-  console.log('DATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-  console.log(data)
-  
   return jwt.sign(data, process.env.JWT_ACCESS_TOKEN_SECRET, {
-    expiresIn: '3s'
+    expiresIn: '300s'
   })
 }
 

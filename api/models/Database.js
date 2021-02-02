@@ -25,9 +25,13 @@ db.images = require('./Image.model')(sequelize, Sequelize, db.category)
 db.roles = require('./Role.model')(sequelize, Sequelize)
 db.newsletter = require('./Newsletter.model')(sequelize, Sequelize)
 db.refreshTokens = require('./RefreshToken')(sequelize, Sequelize)
+db.locations = require('./Location.model')(sequelize, Sequelize)
 
 db.category.hasMany(db.images, { foreignKey: 'categorieId' })
 db.images.belongsTo(db.category)
+
+db.locations.hasMany(db.images)
+db.images.belongsTo(db.locations)
 
 db.roles.hasMany(db.users, { foreignKey: 'roleId' })
 db.users.belongsTo(db.roles)

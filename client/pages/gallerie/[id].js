@@ -3,6 +3,8 @@ import useGetData from '../../hooks/useGetData'
 import { useRouter } from 'next/router'
 
 const ImageDetails = ({image}) => {
+  console.log(image)
+  
   return <section className="image-details">
     <picture>
       <source media="(min-width: 421px)" srcSet={image.chemin}/>
@@ -11,7 +13,16 @@ const ImageDetails = ({image}) => {
     </picture>
     <div>
       <h1>{image.titre}</h1>
-      <p>Catégorie: {image.categorie.titre || "Aucune"}</p>
+      {
+        image.location
+        ?<p>Lieu: {image.location.title}</p>
+        :<></>
+      }
+      {
+        image.categorie
+        ?<p>Catégorie: {image.categorie.titre}</p>
+        :<></>
+      }
       <pre>{image.description}</pre>
     </div>
   </section>

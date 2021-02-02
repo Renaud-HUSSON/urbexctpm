@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { findByEmail, create } = require('../controllers/User.controller')
-const { generateAccessToken } = require('../utils/generateToken')
 const { findByName } = require('../controllers/Role.controller')
+const { generateRefreshToken, generateAccessToken } = require('../utils/token')
 const router = require('express').Router()
 
 router.post('/login', async (req, res) => {
@@ -32,6 +32,13 @@ router.post('/login', async (req, res) => {
     })
   }
 
+  if(req.body.refresh === true){
+    try {
+      const refreshToken = generateRefreshToken({sub: results.data, role: 'user'})
+      res.cookie('refresh_token', refreshToken)
+    }catch(e){}
+  }
+
   const accessToken = generateAccessToken({sub: result.data.id, role: result.data.role.nom})
 
   return res.cookie('access_token', accessToken, {httpOnly: true}).send({
@@ -57,13 +64,22 @@ router.post('/register', async (req, res) => {
   try {
     const results = await create(req, res)
     const accessToken = generateAccessToken({sub: results.data, role: 'user'})
-  
+
+    if(req.body.refresh === true){
+      const refreshToken = generateRefreshToken({sub: results.data, role: 'user'})
+      res.cookie('refresh_token', refreshToken)
+    }
+    
     return res.cookie('access_token', accessToken, {httpOnly: true}).send({
       success: true,
       message: 'Votre compte a bien été créé',
       accessToken: accessToken
     })
-  }catch(e){}
+  }catch(e){
+    console.log("-----------------------------------")
+    console.log(e)
+    console.log("-----------------------------------")
+  }
 })
 
 router.get('/authenticated', async (req, res) => {
@@ -77,7 +93,7 @@ router.get('/authenticated', async (req, res) => {
   }
 
   try {
-    jwt.verify(access_token, process.env.JWT_SECRET)
+    jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
     
     return res.send({
       success: true
@@ -112,7 +128,7 @@ router.get('/authorized', (req, res) => {
   }
 
   try {
-    const payload = jwt.verify(access_token, process.env.JWT_SECRET)
+    const payload = jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
 
     if(payload.role !== role && payload.role !== 'admin'){
       return res.status(403).send({

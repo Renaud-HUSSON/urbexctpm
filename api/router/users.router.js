@@ -1,11 +1,10 @@
 const router = require('express').Router()
-const passport = require('passport')
 const { findAll, findById, create, update, deleteById } = require('../controllers/User.controller')
-const adminRoute = require('../middlewares/adminRoute')
+const { authenticateAdmin, authenticateUser } = require('../middlewares/authenticate')
 
-router.get('/', [adminRoute, passport.authenticate('jwt', { session: false }), findAll])
-router.get('/:id', [adminRoute, passport.authenticate('jwt', { session: false }), findById])
-router.post('/', passport.authenticate('jwt', { session: false }), () => {
+router.get('/', authenticateAdmin, findAll)
+router.get('/:id', authenticateAdmin, findById)
+router.post('/', () => {
   create()
 
   return res.send({
@@ -13,7 +12,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), () => {
     message: "Votre compte a bien été créé !"
   })
 })
-router.patch('/:id', passport.authenticate('jwt', { session: false }), update)
-router.delete('/', [adminRoute, passport.authenticate('jwt', { session: false }), deleteById])
+router.patch('/:id', authenticateUser, update)
+router.delete('/', authenticateUser, deleteById)
 
 module.exports = router

@@ -8,6 +8,9 @@ const ImagesEdit = (props) => {
       <ReferenceInput label="Catégorie" source="categorieId" reference="categories" allowEmpty>
         <SelectInput optionText="titre" emptyText="Aucune catégorie"/>
       </ReferenceInput>
+      <ReferenceInput label="Lieu" source="locationId" reference="locations" allowEmpty>
+        <SelectInput optionText="title" emptyText="Aucun lieu"/>
+      </ReferenceInput>
       <ImageField label="Ancienne image" source="chemin" title="titre" />
       <ImageInput label="Image" source="image" accept="image/*">
         <ImageField source="chemin" title="titre" />

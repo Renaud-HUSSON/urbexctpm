@@ -7,6 +7,9 @@ const ImageCreate = (props) => {
       <ReferenceInput label="Catégorie" source="categorieId" reference="categories" allowEmpty>
         <SelectInput source="categorie" optionText="titre" emptyText="Aucune catégorie"/>
       </ReferenceInput>
+      <ReferenceInput label="Lieu" source="locationId" reference="locations" allowEmpty>
+        <SelectInput optionText="title" emptyText="Aucun lieu"/>
+      </ReferenceInput>
       <ImageInput label="Image" source="image" validate={[required()]} accept="image/*">
         <ImageField source="src" title="title" />
       </ImageInput>

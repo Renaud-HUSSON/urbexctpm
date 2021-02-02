@@ -15,8 +15,9 @@ const ImagesList = props => {
         />
       :<Datagrid rowClick="edit">
           <TextField source="id" />
-          <TextField source="titre" />
+          <TextField source="titre"/>
           <TextField source="categorie.titre" label="Catégorie" sortable={false}/>
+          <TextField source="location.title" label="Lieu" sortable={false}/>
           <TextField source="chemin" />
           <TextField source="description" />
           <DateField source="createdAt" />

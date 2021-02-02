@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken')
 const { findByEmail, create } = require('../controllers/User.controller')
 const { findByName } = require('../controllers/Role.controller')
 const { generateRefreshToken, generateAccessToken, verifyRefreshTokenAndCreateAccessToken, verifyAccessToken } = require('../utils/token')
+const db = require('../models/Database')
 const router = require('express').Router()
 
 router.post('/login', async (req, res) => {
@@ -203,7 +204,17 @@ router.get('/authorized', (req, res) => {
   }
 })
 
-router.get('/logout', (_req, res) => {
+router.get('/logout', (req, res) => {
+  //Deletes the refresh token record in the database
+  db.refreshTokens.destroy({
+    where: {
+      token: req.cookies.refresh_token
+    }
+  })
+  .catch(e => {})
+  
+  res.cookie('refresh_token', '', {maxAge: 0})
+  
   return res.cookie('access_token', '', {maxAge: 0}).send({
     success: true,
     message: 'Vous avez été déconnecté avec succès'

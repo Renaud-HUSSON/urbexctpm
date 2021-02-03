@@ -1,10 +1,4 @@
-import Loading from "../../components/shared/Loading"
-import useGetData from '../../hooks/useGetData'
-import { useRouter } from 'next/router'
-
 const ImageDetails = ({image}) => {
-  console.log(image)
-  
   return <section className="image-details">
     <picture>
       <source media="(min-width: 421px)" srcSet={image.chemin}/>

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react"
 import CategorySelect from "../../components/Gallerie/CategorySelect"
 import GallerieImage from "../../components/Gallerie/GallerieImage"
 import LazyLoadImages from "../../components/Gallerie/LazyLoadImages"
-import Loading from "../../components/shared/Loading"
 
 const Gallerie = ({ imagesProps, limit, categoriesProps }) => {    
   const initialRender = useRef(true)

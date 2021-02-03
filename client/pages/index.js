@@ -2,12 +2,23 @@ import Presentation from "../components/Home/Presentation"
 import PresentationCarte from "../components/Home/PresentationCarte"
 import PresentationGalerie from "../components/Home/PresentationGallerie"
 
-const Home = () => {
+const Home = ({carouselImages}) => {
   return <div className="homepage">
-    <PresentationGalerie />
+    <PresentationGalerie carouselImages={carouselImages}/>
     <Presentation />
     <PresentationCarte />
   </div>
+}
+
+export async function getStaticProps(){
+  const res = await fetch(`${process.env.BASE_API_URL}api/images?limit=100`)
+  const json = await res.json()
+
+  return {
+    props: {
+      carouselImages: json.data
+    }
+  }
 }
 
 export default Home

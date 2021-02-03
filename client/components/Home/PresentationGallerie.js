@@ -2,7 +2,7 @@ import Link from "next/link"
 import Carousel from "./Carousel"
 import { v4 as uuid } from 'uuid';
 
-const PresentationGalerie = () => {
+const PresentationGalerie = ({carouselImages}) => {
   return <section className="presentation-galerie">
     <div className="presentation-galerie__text">
       <h2>DÉCOUVREZ MES PHOTOS D'URBEX</h2>
@@ -12,9 +12,11 @@ const PresentationGalerie = () => {
     </div>
     
     <Carousel>
-      <img className="1" key={uuid()} src='/urbex1.jpg' alt="urbex" />
-      <img className="2" key={uuid()} src='/urbex2.jpg' alt="urbex" />
-      <img className="3" key={uuid()} src='/urbex3.jpg' alt="urbex" />
+      {
+        carouselImages.map(image => (
+          <img key={uuid()} src={image.chemin} alt={image.titre} />
+        ))
+      }
     </Carousel>
 
   </section>

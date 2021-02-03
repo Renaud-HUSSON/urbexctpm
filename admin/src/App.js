@@ -22,16 +22,21 @@ import LocationIcon from '@material-ui/icons/Room';
 import LocationCreate from './components/Create/LocationCreate';
 import LocationEdit from './components/Edit/LocationEdit';
 import LocationList from './components/List/LocationList';
+import CarouselIcon from '@material-ui/icons/ViewCarousel';
+import CarouselCreate from './components/Create/CarouselCreate';
+import CarouselEdit from './components/Edit/CarouselEdit';
+import CarouselList from './components/List/CarouselList';
 
 function App() {
   return (
-    <Admin loginPage={LoginPage} title="TEST" layout={CustomLayout} authProvider={authProvider} dataProvider={dataProvider}>
+    <Admin loginPage={LoginPage} layout={CustomLayout} authProvider={authProvider} dataProvider={dataProvider}>
       <Resource name="images" list={ImagesList} create={ImageCreate} edit={ImagesEdit} icon={PhotoIcon}/>
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
-      <Resource name="newsletter" list={NewsletterList} create={NewsletterCreate} icon={EmailIcon}/>
       <Resource name="locations" options={{label: "Lieux"}} list={LocationList} create={LocationCreate} edit={LocationEdit} icon={LocationIcon}/>
+      <Resource name="newsletter" list={NewsletterList} create={NewsletterCreate} icon={EmailIcon}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>
       <Resource name="roles" list={RolesList} icon={RoleIcon} />
+      <Resource name="carousel" options={{label: "Carousel"}} list={CarouselList} create={CarouselCreate} edit={CarouselEdit} icon={CarouselIcon}/>
     </Admin>
   );
 }

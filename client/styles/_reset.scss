@@ -44,6 +44,8 @@ li {
   color: white;
   background: var(--black);
   transition: 0.3s;
+  cursor: pointer;
+  border: none;
   
   &:hover {
     background: var(--lightBlack);

@@ -4,7 +4,7 @@ import { useMediaQuery } from '@material-ui/core';
 const RolesList = (props) => {
   const isSmall = useMediaQuery(theme => theme.breakpoints.down('sm'));
   
-  return <List {...props}>
+  return <List {...props} bulkActionButtons={false}>
     {
       isSmall
       ?<SimpleList

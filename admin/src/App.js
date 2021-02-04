@@ -34,9 +34,9 @@ function App() {
       <Resource name="categories" options={{label: "Catégories"}} list={CategoriesList} create={CategoriesCreate} edit={CategoriesEdit}/>
       <Resource name="locations" options={{label: "Lieux"}} list={LocationList} create={LocationCreate} edit={LocationEdit} icon={LocationIcon}/>
       <Resource name="newsletter" list={NewsletterList} create={NewsletterCreate} icon={EmailIcon}/>
+      <Resource name="carousel" options={{label: "Carousel"}} list={CarouselList} create={CarouselCreate} edit={CarouselEdit} icon={CarouselIcon}/>
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>
       <Resource name="roles" list={RolesList} icon={RoleIcon} />
-      <Resource name="carousel" options={{label: "Carousel"}} list={CarouselList} create={CarouselCreate} edit={CarouselEdit} icon={CarouselIcon}/>
     </Admin>
   );
 }

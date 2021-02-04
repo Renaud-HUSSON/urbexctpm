@@ -2,7 +2,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: var(--navHeiht);
+  height: var(--navHeight);
   
   > a {
     font-family: 'Shadows into light';
@@ -35,7 +35,7 @@ header {
     // x: devices's width - header padding - burger padding - half of burger's width
     // y: half nav's height
     // => center it inside the burger on every device
-    clip-path: circle(0% at calc(100vw - var(--bodyPadding) - 0.5rem - 15px) calc(var(--navHeiht) / 2));
+    clip-path: circle(0% at calc(100vw - var(--bodyPadding) - 0.5rem - 15px) calc(var(--navHeight) / 2));
     position: fixed;
     width: 100vw;
     height: 100vh;

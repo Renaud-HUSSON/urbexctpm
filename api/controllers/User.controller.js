@@ -1,6 +1,7 @@
 const db = require('../models/Database')
 const bcrypt = require('bcrypt')
 const getContentFromQuery = require('../utils/getContentFromQuery')
+const { updateByEmail, deleteByEmail } = require('./Newsletter.controller')
 const User = db.users
 
 //Creates a user in the database
@@ -135,7 +136,7 @@ exports.findById = (req, res) => {
 }
 
 //Updates a user 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
   const id = req.params.id
 
   //Verify that request's body isn't empty
@@ -144,6 +145,12 @@ exports.update = (req, res) => {
       success: false,
       message: 'Veuillez spécifier au moins un champ à modifier'
     })
+  }
+
+  if(req.body.email){
+    try {
+      await updateByEmail(req.body.email)
+    }catch(err){}
   }
 
   User.update(req.body, {
@@ -166,7 +173,7 @@ exports.update = (req, res) => {
 }
 
 //Deletes one/many user(s)
-exports.deleteById = (req, res) => {
+exports.deleteById = async (req, res) => {
   if(!req.query.id){
     return res.status(400).send({
       success: false,
@@ -175,6 +182,18 @@ exports.deleteById = (req, res) => {
   }
 
   const id = req.query.id.split(',')
+
+  try {
+    for(let i of id){
+      const user = await User.findOne({
+        where: {
+          id: i
+        }
+      })
+      
+      await deleteByEmail(user.dataValues.email).catch()
+    }
+  }catch(e){}
 
   User.destroy({
     where: {

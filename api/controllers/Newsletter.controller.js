@@ -3,12 +3,25 @@ const getContentFromQuery = require('../utils/getContentFromQuery')
 const Newsletter = db.newsletter
 
 //Creates an email in newsletter's table in the database
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   //Verify request's body
   if(!req.body.email){
     return res.status(400).send({
       success: false,
       message: 'Vous devez préciser un email'
+    })
+  }
+
+  const exists = await Newsletter.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+
+  if(exists){
+    return res.status(409).send({
+      success: false,
+      message: `L'adresse email: ${req.body.email} est déjà prise`
     })
   }
 
@@ -165,6 +178,23 @@ exports.update = (req, res) => {
   })
 }
 
+//Updates an email adresse in the newsletter's table
+exports.updateByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    Newsletter.update({email}, {
+      where: {
+        email: email
+      }
+    })
+    .then(() => resolve())
+    .catch(err => reject({
+        success: false,
+        message: `Une erreur est survenue lors de la modification de l'adresse email: ${err}`
+      })
+    )
+  })
+}
+
 //Deletes one, or manies email from the newsletter
 exports.deleteById = (req, res) => {
   if(!req.query.id){
@@ -181,7 +211,14 @@ exports.deleteById = (req, res) => {
       id: id
     }
   })
-  .then(() => {
+  .then(row => {
+    if(row === 0){
+      return res.status(404).send({
+        success: false,
+        message: "L'adresse n'est pas inscrite à notre newsletter"
+      })
+    }
+    
     return res.send({
       success: true,
       message: id.length === 1 ? "L'adresse email a bien été supprimés" : "Les adresses email ont bien été supprimées"
@@ -191,6 +228,24 @@ exports.deleteById = (req, res) => {
     return res.status(500).send({
       success: false,
       message: `Une erreur est survenue lors de la suppresion d'une ou plusieurs adresse email: ${err}`
+    })
+  })
+}
+
+//Deletes one email from the newsletter by email
+exports.deleteByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    Newsletter.destroy({
+    where: {
+      email: email
+    }
+    })
+    .then(() => resolve())
+    .catch(err => {
+      reject({
+        success: false,
+        message: `Une erreur est survenue lors de la suppresion d'une ou plusieurs adresse email: ${err}`
+      })
     })
   })
 }

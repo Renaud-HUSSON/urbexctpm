@@ -93,10 +93,15 @@ section.gallerie {
     }
   }
 
-  .gallerie-loading {
+  .gallerie__see-more {
     display: flex;
     justify-content: center;
     margin-top: 1rem;
+
+    button {
+      padding: 1rem;
+      font-size: 1rem;
+    }
   }
 }
 

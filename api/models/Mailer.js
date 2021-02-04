@@ -1,9 +1,11 @@
+require('dotenv').config()
 const nodemailer = require("nodemailer");
 const { htmlToText } = require('html-to-text');
 
 class Mailer {
   
-  static sendMail = async (to, header, body) => {
+  static sendMail = async (to, header, body, attachments) => {
+    console.log(to)
 
     const user = process.env.MAIL_USER
     const password = process.env.MAIL_PASSWORD
@@ -19,16 +21,21 @@ class Mailer {
       },
     });
     
-    await transporter.sendMail({
-      from: 'urbexctpm <noreply@urbexctpm.fr>',
-      to: to,
-      subject: header,
-      text: htmlToText(body),
-      html: `<pre>${body}</pre>`
-    })
-    return {
-      success: true,
-      message: 'Le mail a bien été envoyé !'
+    try {
+      await transporter.sendMail({
+        from: 'urbexctpm <noreply@urbexctpm.fr>',
+        to: to,
+        subject: header,
+        text: htmlToText(body),
+        html: `<pre>${body}</pre>`,
+        attachments: attachments ? attachments : ''
+      })
+      return {
+        success: true,
+        message: 'Le mail a bien été envoyé !'
+      }
+    }catch(err){
+      console.log(`Erreur lors de l'envoie du mail: ${err}`)
     }
   }
 }

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Footer from './Footer/Footer'
 import Header from "./Header/Header"
 
 const Layout = ({children}) => {
@@ -7,7 +8,10 @@ const Layout = ({children}) => {
       <title>urbexctpm</title>
     </Head>
     <Header />
-    {children}
+    <main>
+      {children}
+    </main>
+    <Footer />
   </>
 }
 

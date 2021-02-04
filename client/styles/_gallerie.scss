@@ -107,8 +107,6 @@ section.gallerie {
 
 @media (max-width: 991px){
   section.gallerie {
-    padding-bottom: 2rem;
-
     .gallerie__images {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -125,8 +123,6 @@ section.gallerie {
 
 @media (max-width: 768px){
   section.gallerie {
-    padding-bottom: 1rem;
-
     .gallerie__header {
       flex-direction: column;
       align-items: flex-start;

@@ -14,7 +14,7 @@ const PresentationGalerie = ({carouselImages}) => {
     <Carousel>
       {
         carouselImages.map(image => (
-          <img key={uuid()} src={image.chemin} alt={image.titre} />
+          <img key={uuid()} src={image.image.chemin} alt={image.image.titre} />
         ))
       }
     </Carousel>

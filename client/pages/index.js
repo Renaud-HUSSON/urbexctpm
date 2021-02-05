@@ -11,8 +11,10 @@ const Home = ({carouselImages}) => {
 }
 
 export async function getStaticProps(){
-  const res = await fetch(`${process.env.BASE_API_URL}api/images?limit=100`)
+  const res = await fetch(`${process.env.BASE_API_URL}api/carousel?limit=100`)
   const json = await res.json()
+
+  console.log(json)
 
   return {
     props: {

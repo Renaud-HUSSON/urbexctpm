@@ -1,4 +1,4 @@
-import { Datagrid, DateField, EmailField, List, TextField } from "react-admin"
+import { Datagrid, EmailField, List, TextField } from "react-admin"
 import SendMail from "../SendMail"
 
 const NewsletterList = (props) => {
@@ -8,8 +8,6 @@ const NewsletterList = (props) => {
       <Datagrid>
         <TextField source="id" />
         <EmailField source="email" />
-        <DateField source="createdAt" />
-        <DateField source="updatedAt" />
       </Datagrid>
     </List>
   </> 

@@ -1,11 +1,13 @@
-const { Create, SimpleForm, TextInput } = require("react-admin")
+import { Create, SimpleForm, TextInput, ReferenceInput, SelectInput } from "react-admin"
 
 const LocationCreate = (props) => {
   return <Create {...props}>
     <SimpleForm>
       <TextInput source="title" label="Titre"/>
-      <TextInput source="lat" label="Latitude"/>
-      <TextInput source="lng" label="Longitude"/>
+      <ReferenceInput source="regionId" reference="regions">
+        <SelectInput optionText="nom" />
+      </ReferenceInput>
+      <TextInput style={{width: '100%'}} rows={10} source="description" multiline/>
     </SimpleForm>
   </Create>
 }

@@ -13,7 +13,7 @@ const ImageCreate = (props) => {
       <ImageInput label="Image" source="image" validate={[required()]} accept="image/*">
         <ImageField source="src" title="title" />
       </ImageInput>
-      <TextInput label="Description" source="description" resettable/>
+      <TextInput label="Description" style={{width: '100%'}} rows={10} source="description" multiline resettable/>
     </SimpleForm>
   </Create>
 }

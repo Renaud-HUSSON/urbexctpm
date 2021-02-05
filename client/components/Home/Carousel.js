@@ -5,12 +5,14 @@ const Carousel = ({children}) => {
   const carouselImages = useRef()
 
   //Carousel items to make it infinite
-  const childrenArray = [
+  const childrenArray = children.length >= 2
+  ?[
     cloneElement(children[children.length - 2], { key: '09739278632387635763533' }),
     cloneElement(children[children.length - 1], { key: '0973927863287635763533' }),
     cloneElement(children[0], { className: (children[0].props.className || '') + ' carousel__images--active' }),
     ...children.slice(1, children.length),
   ]
+  :[]
 
   children.slice(0, children.length - 2).forEach((child, i) => {
     return childrenArray.push(cloneElement(child, { key: i * 212122.098763 }))

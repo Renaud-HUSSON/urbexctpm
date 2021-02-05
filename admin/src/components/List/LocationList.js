@@ -1,4 +1,4 @@
-import { Datagrid, DateField, EditButton, List, SimpleList, TextField } from "react-admin"
+import { Datagrid, EditButton, List, ReferenceField, SimpleList, TextField } from "react-admin"
 import { useMediaQuery } from '@material-ui/core';
 
 
@@ -16,10 +16,10 @@ const LocationList = (props) => {
     :<Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="title" label="Titre"/>
-      <TextField source="lat" label="Latitude"/>
-      <TextField source="lng" label="Longitude"/>
-      <DateField source="createdAt" />
-      <DateField source="updatedAt" />
+      <ReferenceField source="regionId" reference="regions">
+        <TextField source="nom" label="Region"/>
+      </ReferenceField>
+      <TextField source="description" label="Description"/>
       <EditButton />
   </Datagrid>
   }

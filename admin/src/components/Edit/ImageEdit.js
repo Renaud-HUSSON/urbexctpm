@@ -15,7 +15,7 @@ const ImagesEdit = (props) => {
       <ImageInput label="Image" source="image" accept="image/*">
         <ImageField source="chemin" title="titre" />
       </ImageInput>
-      <TextInput label="Description" source="description" resettable/>
+      <TextInput label="Description" style={{width: '100%'}} rows={10} source="description" multiline resettable/>
       <DateInput disabled label="Date de publication" source="createdAt"/>
       <DateInput disabled label="Dernière modification" source="updatedAt"/>
     </SimpleForm>

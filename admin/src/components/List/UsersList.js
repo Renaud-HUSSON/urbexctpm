@@ -1,4 +1,4 @@
-import { Datagrid, DateField, EditButton, EmailField, List, SimpleList, TextField } from "react-admin"
+import { Datagrid, EditButton, EmailField, List, SimpleList, TextField } from "react-admin"
 import { useMediaQuery } from '@material-ui/core';
 import UsersFilter from "../Filter/UsersFilter";
 
@@ -18,8 +18,6 @@ const UsersList = (props) => {
           <TextField source="username" />
           <EmailField source="email" />
           <TextField source="role.nom" label="Role" sortable={false} />
-          <DateField source="createdAt" />
-          <DateField source="updatedAt" />
           <EditButton />
         </Datagrid>
       }

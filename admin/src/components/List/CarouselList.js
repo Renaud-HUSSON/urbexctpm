@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, ReferenceField, TextField } from "react-admin"
+import { Datagrid, List, ReferenceField, TextField } from "react-admin"
 
 const CarouselList = (props) => {
   return <List {...props}>
@@ -7,8 +7,6 @@ const CarouselList = (props) => {
         <ReferenceField source="imageId" reference="images">
           <TextField source="titre"/>
         </ReferenceField>
-        <DateField source="updatedAt" />
-        <DateField source="createdAt" />
     </Datagrid>
   </List>
 }

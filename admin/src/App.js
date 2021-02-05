@@ -26,6 +26,10 @@ import CarouselIcon from '@material-ui/icons/ViewCarousel';
 import CarouselCreate from './components/Create/CarouselCreate';
 import CarouselEdit from './components/Edit/CarouselEdit';
 import CarouselList from './components/List/CarouselList';
+import RegionIcon from '@material-ui/icons/Public';
+import RegionsList from './components/List/RegionsList';
+import RegionCreate from './components/Create/RegionCreate';
+import RegionEdit from './components/Edit/RegionEdit';
 
 function App() {
   return (
@@ -35,6 +39,7 @@ function App() {
       <Resource name="locations" options={{label: "Lieux"}} list={LocationList} create={LocationCreate} edit={LocationEdit} icon={LocationIcon}/>
       <Resource name="newsletter" list={NewsletterList} create={NewsletterCreate} icon={EmailIcon}/>
       <Resource name="carousel" options={{label: "Carousel"}} list={CarouselList} create={CarouselCreate} edit={CarouselEdit} icon={CarouselIcon}/>
+      <Resource name="regions" list={RegionsList} create={RegionCreate} edit={RegionEdit} icon={RegionIcon} />
       <Resource name="users" options={{label: "Utilisateurs"}} list={UsersList} edit={UserEdit} icon={UserIcon}/>
       <Resource name="roles" list={RolesList} icon={RoleIcon} />
     </Admin>

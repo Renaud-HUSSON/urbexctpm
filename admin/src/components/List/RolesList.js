@@ -1,4 +1,4 @@
-import { Datagrid, DateField, List, SimpleList, TextField } from "react-admin"
+import { Datagrid, List, SimpleList, TextField } from "react-admin"
 import { useMediaQuery } from '@material-ui/core';
 
 const RolesList = (props) => {
@@ -14,8 +14,6 @@ const RolesList = (props) => {
       :<Datagrid>
         <TextField source="id" />
         <TextField source="nom" />
-        <DateField source="createdAt" />
-        <DateField source="updatedAt" />
       </Datagrid>
     }
 </List>

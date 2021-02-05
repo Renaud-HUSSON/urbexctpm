@@ -19,6 +19,7 @@ const db = {}
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
+//Models
 db.users = require('./User.model')(sequelize, Sequelize)
 db.category = require('./Category.model')(sequelize, Sequelize)
 db.images = require('./Image.model')(sequelize, Sequelize, db.category)
@@ -27,14 +28,16 @@ db.newsletter = require('./Newsletter.model')(sequelize, Sequelize)
 db.refreshTokens = require('./RefreshToken')(sequelize, Sequelize)
 db.locations = require('./Location.model')(sequelize, Sequelize)
 db.carousel = require('./Carousel.model')(sequelize, Sequelize)
+db.regions = require('./Region.model')(sequelize, Sequelize)
 
-db.category.hasMany(db.images, { foreignKey: 'categorieId' })
+//Associations
+db.category.hasMany(db.images)
 db.images.belongsTo(db.category)
 
 db.locations.hasMany(db.images)
 db.images.belongsTo(db.locations)
 
-db.roles.hasMany(db.users, { foreignKey: 'roleId' })
+db.roles.hasMany(db.users)
 db.users.belongsTo(db.roles)
 
 db.users.hasMany(db.refreshTokens)
@@ -42,5 +45,8 @@ db.refreshTokens.belongsTo(db.users)
 
 db.images.hasOne(db.carousel)
 db.carousel.belongsTo(db.images)
+
+db.regions.hasMany(db.locations)
+db.locations.belongsTo(db.regions)
 
 module.exports = db

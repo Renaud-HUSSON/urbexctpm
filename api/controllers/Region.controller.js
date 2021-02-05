@@ -1,38 +1,36 @@
 const db = require('../models/Database')
 const getContentFromQuery = require('../utils/getContentFromQuery')
-const Location = db.locations
+const Region = db.regions
 
-//Creates a location in the database
+//Creates a region in the database
 exports.create = (req, res) => {
   //Verify request's body
-  if(!req.body.title || !req.body.description || !req.body.regionId){
+  if(!req.body.nom){
     return res.status(400).send({
       success: false,
-      message: 'Vous devez préciser un titre, une description et une région'
+      message: 'Vous devez préciser un nom pour la région'
     })
   }
 
-  Location.create({
-    title: req.body.title,
-    description: req.body.description,
-    regionId: req.body.regionId
+  Region.create({
+    nom: req.body.nom
   })
   .then(data => {
     return res.send({
       success: true,
-      message: `Le lieu ${data.dataValues.titre} a bien été ajouté`,
+      message: `La région ${data.dataValues.nom} a bien été ajoutée`,
       data: data
     })
   })
   .catch(err => {
     return res.status(500).send({
       success: false,
-      message: `Une erreur est survenue lors de l'ajout du lieu: ${err}`
+      message: `Une erreur est survenue lors de l'ajout de la région: ${err}`
     })
   })
 }
 
-//Retrieves all locations from the database
+//Retrieves all regions from the database
 exports.findAll = (req, res) => {
   //Get params from the query to give options to the request
   const filter = req.query.filter
@@ -57,7 +55,7 @@ exports.findAll = (req, res) => {
     options.order = getContentFromQuery(order)
   }
   
-  Location.findAndCountAll({
+  Region.findAndCountAll({
     ...options,
     offset: page * imagesPerPage,
     limit: imagesPerPage
@@ -73,16 +71,16 @@ exports.findAll = (req, res) => {
   .catch(err => {
     return res.status(500).send({
       success: false,
-      message: `Une erreur est survenue lors de la récupération des lieux: ${err}`
+      message: `Une erreur est survenue lors de la récupération des régions: ${err}`
     })
   })
 }
 
-//Finds a location by its id
+//Finds a region by its id
 exports.findById = (req, res) => {
   const id = req.params.id
 
-  Location.findOne({
+  Region.findOne({
     where: {
       id: id
     }
@@ -91,7 +89,7 @@ exports.findById = (req, res) => {
     if(!results){
       return res.status(404).send({
         success: false,
-        message: 'Le lieu est introuvable'
+        message: 'La région est introuvable'
       })
     }
     
@@ -103,24 +101,24 @@ exports.findById = (req, res) => {
   .catch(err => {
     return res.status(500).send({
       success: false,
-      message: `Une erreur est survenue lors de la récupération du lieu n°${id}: ${err}`
+      message: `Une erreur est survenue lors de la récupération de la région n°${id}: ${err}`
     })
   })
 }
 
-//Updates a location
+//Updates a region
 exports.update = (req, res) => {
   const id = req.params.id
   
   //Verify request's body
-  if(!req.body.titre && !req.body.description && !req.body.regionId){
+  if(!req.body.nom){
     return res.status(400).send({
       success: false,
-      message: "Le titre, la description et la région doivent être donnés"
+      message: "Un nom doit être donné"
     })
   }
 
-  Location.update(req.body, {
+  Region.update(req.body, {
     where: {
       id: id
     }
@@ -137,12 +135,12 @@ exports.update = (req, res) => {
   .catch(err => {
     return res.status(500).send({
       success: false,
-      message: `Une erreur est survenue lors de la modification du lieu: ${err}`
+      message: `Une erreur est survenue lors de la modification de la région: ${err}`
     })
   })
 }
 
-//Deletes one, or manies locations
+//Deletes one, or manies regions
 exports.deleteById = (req, res) => {
   if(!req.query.id){
     return res.status(400).send({
@@ -153,7 +151,7 @@ exports.deleteById = (req, res) => {
 
   const id = req.query.id.split(',')
   
-  Location.destroy({
+  Region.destroy({
     where: {
       id: id
     }
@@ -161,13 +159,13 @@ exports.deleteById = (req, res) => {
   .then(() => {
     return res.send({
       success: true,
-      message: id.length === 1 ? 'Le lieu a bien été supprimé' : 'Les lieux ont bien été supprimés'
+      message: id.length === 1 ? 'La région a bien été supprimés' : 'Les régions ont bien été supprimées'
     })
   })
   .catch(err => {
     return res.status(500).send({
       success: false,
-      message: `Une erreur est survenue lors de la suppresion d'un ou plusieurs lieux: ${err}`
+      message: `Une erreur est survenue lors de la suppresion d'une ou plusieurs région: ${err}`
     })
   })
 }

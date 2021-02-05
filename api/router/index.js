@@ -9,6 +9,7 @@ const Router = app => {
   app.use(`${process.env.API_BASE_URL}/newsletter`, multer.single('image'), require('./newsletter.router'))
   app.use(`${process.env.API_BASE_URL}/locations`, multer.single('image'), require('./location.router'))
   app.use(`${process.env.API_BASE_URL}/carousel`, multer.single('image'), require('./carousel.router'))
+  app.use(`${process.env.API_BASE_URL}/regions`, multer.single('image'), require('./region.router'))
 }
 
 module.exports = Router

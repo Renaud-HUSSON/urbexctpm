@@ -50,6 +50,12 @@ section.map {
         white-space: pre-wrap;
         word-wrap: break-word;
       }
+
+      a {
+        display: inline-block;
+        color: lightskyblue;
+        padding: 0.5rem 0;
+      }
     }
   }
 }

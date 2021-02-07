@@ -5,9 +5,9 @@ import { v4 as uuid } from 'uuid';
 const PresentationGalerie = ({carouselImages}) => {
   return <section className="presentation-galerie">
     <div className="presentation-galerie__text">
-      <h2>DÉCOUVREZ MES PHOTOS D'URBEX</h2>
+      <h2>DÉCOUVREZ MES PHOTOS D'<span>URBEX</span></h2>
       <Link href="/gallerie">
-        <a className="button">VOIR LA GALLERIE</a>
+        <a className="button">VOIR LA <span>GALLERIE</span></a>
       </Link>
     </div>
     

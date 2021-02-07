@@ -6,7 +6,7 @@ const PresentationCarte = () => {
     <div className="presentation-carte__text">
       <h2>DÉCOUVREZ QUELQUES LIEUX TRÈS CONNUS</h2>
       <Link href="/carte">
-        <a className="button">VOIR LA CARTE</a>
+        <a className="button">VOIR LA <span>CARTE</span></a>
       </Link>
     </div>
   </section>

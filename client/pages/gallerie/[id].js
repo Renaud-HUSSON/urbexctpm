@@ -1,5 +1,18 @@
+import Head from "next/head"
+
 const ImageDetails = ({image}) => {
   return <section className="image-details">
+    <Head>
+      <title>{image.titre} - urbexctpm</title>
+      <meta name="description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+
+      <meta property="og:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+      <meta property="og:title" content={`${image.titre} - urbexctpm`} />
+      <meta property="og:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+      <meta property="twitter:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+      <meta property="twitter:title" content={`${image.titre} - urbexctpm`} />
+      <meta property="twitter:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+    </Head>
     <picture>
       <source media="(min-width: 421px)" srcSet={image.chemin}/>
       <source media="(max-width: 420px)" srcSet={image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>

@@ -1,9 +1,14 @@
 import Link from 'next/link'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import withAuth from '../../components/HOC/withAuth'
+import Head from 'next/head'
 
 const Lieu = ({ location, images }) => {
   return <section className="lieu">
+    <Head>
+      <title>{location.title} - urbexctpm</title>
+      <meta name="description" content={location.description}/>
+    </Head>
     <h1>{location.title}</h1>
     <h2>Nous avons {images.length} images de ce lieu:</h2>
     <div className="lieu__images">

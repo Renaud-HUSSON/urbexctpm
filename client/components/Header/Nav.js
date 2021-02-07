@@ -14,8 +14,6 @@ const Nav = ({nav, setNav}) => {
     setLogged({logged: false, data: ''})
   }
 
-  console.log(logged)
-  
   const handleClickAdmin = () => {
     window.location.pathname = '/admin'
   }

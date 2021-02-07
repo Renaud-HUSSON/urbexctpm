@@ -88,9 +88,7 @@ router.post('/register', async (req, res) => {
       message: 'Votre compte a bien été créé',
       data: {sub: results.data.id, role: role.nom}
     })
-  }catch(e){
-    console.log(e)
-  }
+  }catch(e){}
 })
 
 router.get('/authenticated', async (req, res) => {

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useForm } from "react-hook-form";
 
 const Newsletter = () => {
@@ -12,6 +13,18 @@ const Newsletter = () => {
   }
   
   return <section className="newsletter-page">
+    <Head>
+      <title>Newsletter - urbexctpm</title>
+      <meta name="description" content="Inscrivez vous à notre newsletter et recevez des emails lorsque de nouvelles images sont disponnibles"/>
+
+      <meta property="og:url" content="https:/urbexctpm.fr/newsletter" />
+      <meta property="og:title" content="Newsletter - urbexctpm" />
+      <meta property="og:description" content="Inscrivez vous à notre newsletter et recevez des emails lorsque de nouvelles images sont disponnibles" />
+      <meta property="twitter:url" content="https:/urbexctpm.fr/newsletter" />
+      <meta property="twitter:title" content="Newsletter - urbexctpm" />
+      <meta property="twitter:description" content="Inscrivez vous à notre newsletter et recevez des emails lorsque de nouvelles images sont disponnibles" />
+    </Head>
+  
     <div className="left">
       <h1>Inscrivez vous à notre newsletter</h1>
       <p>Recevez des emails lorsque de nouvelles images sont disponnibles</p>

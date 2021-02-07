@@ -48,15 +48,23 @@ li {
   padding: 1.5rem;
   outline: none;
   text-transform: uppercase;
-  color: white;
   background: var(--black);
   transition: 0.3s;
   cursor: pointer;
   border: none;
+  color: white;
+  
+  > * {
+    color: white;
+  }
   
   &:hover {
     background: var(--lightBlack);
   }
+}
+
+span {
+  font-weight: 400;
 }
 
 form {

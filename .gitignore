@@ -4,3 +4,5 @@ db/data
 images
 backup.sh
 backup
+docker-compose.prod.yml
+init-letsencrypt.sh

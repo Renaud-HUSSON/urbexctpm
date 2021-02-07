@@ -14,6 +14,7 @@ services:
       - ./client/pages:/client/pages
       - ./client/public:/client/public
       - ./client/styles:/client/styles
+      - ./client/context:/client/context
     ports:
       - 8080:8080
     command: npm run dev

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import withAuth from '../../components/HOC/withAuth'
 
 const Lieu = ({ location, images }) => {
   return <section className="lieu">
@@ -55,4 +56,4 @@ export async function getStaticProps({ params }){
   }
 }
 
-export default Lieu
+export default withAuth(Lieu)

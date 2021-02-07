@@ -1,6 +1,7 @@
 import Map from "../components/Map/Map"
 import { useState } from 'react'
 import MapInformations from "../components/Map/MapInformations"
+import withAuth from "../components/HOC/withAuth"
 
 const carte = ({regions}) => {
   const [currentRegion, setCurrentRegion] = useState(null)
@@ -22,4 +23,4 @@ export async function getStaticProps() {
   }
 }
 
-export default carte
+export default withAuth(carte)

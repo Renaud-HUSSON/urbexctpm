@@ -29,7 +29,7 @@ const Header = () => {
       <div></div>
       <div></div>
     </div>
-    <Nav nav={nav}/>
+    <Nav nav={nav} setNav={setNav} />
   </header>
 }
 

@@ -59,11 +59,18 @@ header {
       li {
         padding: 1rem;
 
-        a {
+        a, button {
           width: 100%;
           font-size: 3rem;
           text-transform: uppercase;
           padding: 1rem;
+        }
+
+        button {
+          background: var(--black);
+          outline: none;
+          border: none;
+          cursor: pointer;
         }
       }
     }

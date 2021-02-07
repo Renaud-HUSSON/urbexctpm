@@ -59,6 +59,60 @@ li {
   }
 }
 
+form {
+  .input-group {
+    margin-bottom: 1rem;
+    
+    label {
+      display: block;
+      font-size: 1.75rem;
+      margin: 0.5rem 0;
+    }
+    
+    input {
+      width: 100%;
+      height: 2rem;
+      border: none;
+      border-bottom: 2px solid var(--black);
+      outline: none;
+      font-size: 1.5rem;
+
+      &:focus {
+        border-bottom: 4px solid var(--black);
+      }
+
+      &::selection {
+        background-color: var(--black);
+        color: white;
+      }
+    }
+
+    .input-group__error {
+      margin-top: 0.75rem;
+      color: var(--red);
+    }
+
+    &.checkbox {
+      display: flex;
+      align-items: center;
+
+      input {
+        width: 20px;
+        height: 20px;
+      }
+
+      label {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  .button {
+    font-size: 1.25rem;
+    padding: 1rem;
+  }
+}
+
 .intersection-observer {
   opacity: 0;
   transform: translateY(20px);
@@ -78,5 +132,9 @@ li {
 
   section {
     padding: 3rem 0;
+  }
+
+  form {
+    width: 100% !important;
   }
 }

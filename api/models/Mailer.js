@@ -5,8 +5,6 @@ const { htmlToText } = require('html-to-text');
 class Mailer {
   
   static sendMail = async (to, header, body, attachments) => {
-    console.log(to)
-
     const user = process.env.MAIL_USER
     const password = process.env.MAIL_PASSWORD
     const host = process.env.MAIL_HOST

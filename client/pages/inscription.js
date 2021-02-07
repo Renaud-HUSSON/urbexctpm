@@ -1,16 +1,14 @@
-import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import withoutAuth from "../components/HOC/withoutAuth"
 import { LoggedContext } from "../context/Logged"
 
-const Connexion = () => {
+const Inscription = () => {
   const { register, errors, handleSubmit } = useForm()
-  const router = useRouter()
   const [, setLogged] = useContext(LoggedContext)
 
   const onSubmit = async datas => {
-    const data = await fetch('/api/auth/login', {
+    const data = await fetch('/api/auth/register', {
       method: 'POST',
       body: JSON.stringify(datas),
       headers: new Headers({'Content-Type': 'application/json'})
@@ -23,17 +21,22 @@ const Connexion = () => {
   }
   
   return <section className="login-page">
-  <h1>Connectez vous</h1>
-  <p>et accédez à certaines pages tel que les lieux et la carte</p>
+  <h1>Inscrivez vous</h1>
+  <p>et gagnez la possibilité d'accéder à certaines pages tel que les lieux et la carte</p>
   <form onSubmit={handleSubmit(onSubmit)}>
     <div className="input-group">
-      <label htmlFor="log-email">Adresse email</label>
-      <input type="email" id="log-email" name="email" ref={register({ required: true })}/><br/>
+      <label htmlFor="reg-username">Nom / Prénom</label>
+      <input type="text" id="reg-username" name="username" ref={register({ required: true })}/><br/>
+      {errors.username && <p className="input-group__error">Vous devez rentrer un nom / prénom</p>}
+    </div>
+    <div className="input-group">
+      <label htmlFor="reg-email">Adresse email</label>
+      <input type="email" id="reg-email" name="email" ref={register({ required: true })}/><br/>
       {errors.email && <p className="input-group__error">Vous devez rentrer un email</p>}
     </div>
     <div className="input-group">
-      <label htmlFor="log-password">Mot de passe</label>
-      <input type="password" id="log-password" name="password" ref={register({ required: true })}/><br/>
+      <label htmlFor="reg-password">Mot de passe</label>
+      <input type="password" id="reg-password" name="password" ref={register({ required: true })}/><br/>
       {errors.password && <p className="input-group__error">Vous devez rentrer un mot de passe</p>}
     </div>
     <div className="input-group checkbox">
@@ -45,4 +48,4 @@ const Connexion = () => {
 </section>
 }
 
-export default withoutAuth(Connexion)
+export default withoutAuth(Inscription)

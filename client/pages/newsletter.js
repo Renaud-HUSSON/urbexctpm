@@ -9,8 +9,6 @@ const Newsletter = () => {
       body: JSON.stringify(datas),
       headers: new Headers({'Content-Type': 'application/json'})
     }).then(res => res.json())
-    
-    console.log(data)
   }
   
   return <section className="newsletter-page">

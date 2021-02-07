@@ -5,11 +5,11 @@ import "../styles/index.scss"
 
 function App({Component, pageProps}) {
   return (
-    <Layout>
-      <LoggedProvider>
+    <LoggedProvider>
+      <Layout>
         <Component {...pageProps} />
-      </LoggedProvider>
-    </Layout>
+      </Layout>
+    </LoggedProvider>
   );
 }
 

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
 import withoutAuth from "../components/HOC/withoutAuth"
@@ -7,6 +8,8 @@ const Inscription = () => {
   const { register, errors, handleSubmit } = useForm()
   const [, setLogged] = useContext(LoggedContext)
 
+  const router = useRouter()
+
   const onSubmit = async datas => {
     const data = await fetch('/api/auth/register', {
       method: 'POST',
@@ -15,7 +18,7 @@ const Inscription = () => {
     }).then(res => res.json())
 
     if(data.success){
-      setLogged(true)
+      setLogged({logged: true, data: data.data})
       router.push('/profil')
     }
   }
@@ -25,7 +28,7 @@ const Inscription = () => {
   <p>et gagnez la possibilité d'accéder à certaines pages tel que les lieux et la carte</p>
   <form onSubmit={handleSubmit(onSubmit)}>
     <div className="input-group">
-      <label htmlFor="reg-username">Nom / Prénom</label>
+      <label htmlFor="reg-username">Prénom / Nom</label>
       <input type="text" id="reg-username" name="username" ref={register({ required: true })}/><br/>
       {errors.username && <p className="input-group__error">Vous devez rentrer un nom / prénom</p>}
     </div>
@@ -40,8 +43,12 @@ const Inscription = () => {
       {errors.password && <p className="input-group__error">Vous devez rentrer un mot de passe</p>}
     </div>
     <div className="input-group checkbox">
-      <input type="checkbox" name="refresh" id="log-refresh" ref={register()}/>
-      <label htmlFor="log-refresh">Mémoriser mon mot de passe</label>
+      <input type="checkbox" name="refresh" id="reg-refresh" ref={register()}/>
+      <label htmlFor="reg-refresh">Mémoriser mon mot de passe</label>
+    </div>
+    <div className="input-group checkbox">
+      <input type="checkbox" name="newsletter" id="reg-newsletter" ref={register()}/>
+      <label htmlFor="reg-newsletter">S'inscrire à la newsletter</label>
     </div>
     <button className="button" type="submit">Valider</button>
   </form>

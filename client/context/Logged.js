@@ -3,16 +3,16 @@ import { createContext, useEffect, useState } from 'react'
 export const LoggedContext = createContext()
 
 export const LoggedProvider = ({children}) => {
-  const [logged, setLogged] = useState()
+  const [logged, setLogged] = useState({logged: '', data: ''})
   
   useEffect(() => {
     fetch('/api/auth/authenticated')
     .then(data => data.json())
     .then(json => {
       if(json.success){
-        setLogged(true)
+        setLogged({logged: true, data: json.data})
       }else{
-        setLogged(false)
+        setLogged({logged: false, data: ''})
       }
     })
   }, [])

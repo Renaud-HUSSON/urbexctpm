@@ -46,7 +46,7 @@ exports.create = async (req, res) => {
     return {
       success: true,
       message: "Votre compte a bien été créé !",
-      data: data.dataValues.id
+      data: data.dataValues
     }
   })
   .catch(e => {
@@ -106,7 +106,15 @@ exports.findAll = (req, res) => {
 
 //Finds a user by his id
 exports.findById = (req, res) => {
+  const userId = req.userid
   const id = req.params.id
+  
+  if(userId !== parseInt(id)){
+    return res.status(403).send({
+      success: false,
+      message: "Vous n'êtes pas autorisé à accéder à cette ressource"
+    })
+  }
   
   User.findOne({
     where: {
@@ -138,6 +146,13 @@ exports.findById = (req, res) => {
 //Updates a user 
 exports.update = async (req, res) => {
   const id = req.params.id
+  
+  if(parseInt(id, 10) !== req.userid){
+    return res.status(403).send({
+      success: false,
+      message: "Vous ne pouvez pas accéder à cette ressource"
+    })
+  }
 
   //Verify that request's body isn't empty
   if(!req.body.username && !req.body.email && !req.body.password){
@@ -147,13 +162,19 @@ exports.update = async (req, res) => {
     })
   }
 
-  if(req.body.email){
+  const body = {...req.body}
+
+  if(body.email){
     try {
       await updateByEmail(req.body.email)
     }catch(err){}
   }
 
-  User.update(req.body, {
+  if(body.password){
+    body.password = await bcrypt.hash(body.password, 10)
+  }
+
+  User.update(body, {
     where: {
       id: id
     }

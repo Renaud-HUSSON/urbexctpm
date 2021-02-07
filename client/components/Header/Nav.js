@@ -5,14 +5,19 @@ import { LoggedContext } from '../../context/Logged'
 
 const Nav = ({nav, setNav}) => {
   const [logged, setLogged] = useContext(LoggedContext)
-  const router = useRouter()
 
   const handleClick = async () => {
     const data = await fetch('/api/auth/logout')
     const json = await data.json()
 
     setNav(false)
-    setLogged(false)
+    setLogged({logged: false, data: ''})
+  }
+
+  console.log(logged)
+  
+  const handleClickAdmin = () => {
+    window.location.pathname = '/admin'
   }
   
   return <nav className={nav ? 'active' : ''}>
@@ -21,10 +26,15 @@ const Nav = ({nav, setNav}) => {
       <li><Link href="/gallerie">Gallerie</Link></li>
       <li><Link href="/carte">Carte</Link></li>
       {
-        logged
+        logged.logged
         ?<>
           <li><Link href="/profil">Mon profil</Link></li>
           <li><button onClick={handleClick}>Se déconnecter</button></li>
+          {
+            logged.data.role === 'admin'
+            ?<li><button onClick={handleClickAdmin}>Admin</button></li>
+            :<></>
+          }
         </>
         :<>
           <li><Link href="/connexion">Se connecter</Link></li>

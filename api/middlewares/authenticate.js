@@ -15,7 +15,7 @@ const authenticate = async (req, res, role) => {
         throw new Error()
       }
       
-      return
+      return verifiedAccessToken
     }catch(err){
       if(!refreshToken) throw new Error()
     }
@@ -28,7 +28,8 @@ const authenticate = async (req, res, role) => {
 
 exports.authenticateUser = async (req, res, next) => {
   try {
-    await authenticate(req, res, 'user')
+    const token = await authenticate(req, res, 'user')
+    req.userid = token.sub
     next()
   }catch(_err){
     return res.status(403).send({

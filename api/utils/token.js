@@ -81,7 +81,7 @@ exports.verifyAccessToken = (token) => {
  * - rejects if the refresh token is incorrect
  * 
  */
-exports.verifyRefreshTokenAndCreateAccessToken = (token, role) => {
+exports.verifyRefreshTokenAndCreateAccessToken = (token, role = 'user') => {
   return new Promise(async (resolve, reject) => {
     const verifiedToken = await db.refreshTokens.findOne({
       where: {
@@ -89,7 +89,7 @@ exports.verifyRefreshTokenAndCreateAccessToken = (token, role) => {
       },
       include: [{model: db.users, include: [db.roles]}]
     })
-  
+    
     if(!verifiedToken){
       return reject()
     }
@@ -103,6 +103,9 @@ exports.verifyRefreshTokenAndCreateAccessToken = (token, role) => {
       role: verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom
     })
   
-    return resolve(generatedAccessToken)
+    return resolve({token: generatedAccessToken, payload: {
+      sub: verifiedToken.dataValues.utilisateur.id,
+      role: verifiedToken.dataValues.utilisateur.dataValues.role.dataValues.nom
+    }})
   })
 }

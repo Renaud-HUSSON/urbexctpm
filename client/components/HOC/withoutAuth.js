@@ -7,10 +7,10 @@ const withoutAuth = Component => {
     const [logged, ] = useContext(LoggedContext)
     const router = useRouter()
   
-    if(logged){
+    if(logged.logged === true){
       router.push('/')
       return <></>
-    }else if(logged === false){
+    }else if(logged.logged === false){
       return <Component {...props}/>
     }
 

@@ -3,7 +3,7 @@ const { findAll, findById, create, update, deleteById } = require('../controller
 const { authenticateAdmin, authenticateUser } = require('../middlewares/authenticate')
 
 router.get('/', authenticateAdmin, findAll)
-router.get('/:id', authenticateAdmin, findById)
+router.get('/:id', authenticateUser, findById)
 router.post('/', () => {
   create()
 

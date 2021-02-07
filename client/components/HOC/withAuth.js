@@ -8,12 +8,12 @@ const withAuth = (Component, options={}) => {
     const [logged, ] = useContext(LoggedContext)
     const router = useRouter()
   
-    if(logged){
+    if(logged.logged){
       return <Component {...props}/>
     }
     
     useEffect(() => {
-      if(options.redirect && logged === false){
+      if(options.redirect && !logged.logged){
         router.push(options.redirect)
         return <div></div>
       }

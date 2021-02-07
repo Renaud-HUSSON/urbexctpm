@@ -45,7 +45,7 @@ router.post('/login', async (req, res) => {
   return res.cookie('access_token', accessToken, {httpOnly: true}).send({
     success: true,
     message: 'Vous êtes bien connecté',
-    accessToken: accessToken
+    data: {sub: result.data.id, role: result.data.role.nom}
   })
 })
 
@@ -64,25 +64,39 @@ router.post('/register', async (req, res) => {
   
   try {
     const results = await create(req, res)
-    const accessToken = generateAccessToken({sub: results.data, role: 'user'})
+    const accessToken = generateAccessToken({sub: results.data.id, role: 'user'})
 
     if(req.body.refresh === true){
-      const refreshToken = generateRefreshToken({sub: results.data, role: 'user'})
+      const refreshToken = generateRefreshToken({sub: results.data.id, role: 'user'})
       res.cookie('refresh_token', refreshToken)
     }
-    
+
+    if(req.body.newsletter === true){
+      await db.newsletter.create({
+        email: results.data.email
+      })
+    }
+
+    const role = await db.roles.findOne({
+      where: {
+        id: results.data.roleId
+      }
+    })
+
     return res.cookie('access_token', accessToken, {httpOnly: true}).send({
       success: true,
       message: 'Votre compte a bien été créé',
-      accessToken: accessToken
+      data: {sub: results.data.id, role: role.nom}
     })
-  }catch(e){}
+  }catch(e){
+    console.log(e)
+  }
 })
 
 router.get('/authenticated', async (req, res) => {
   const refresh_token = req.cookies.refresh_token
   const access_token = req.cookies.access_token
-  
+
   if(!access_token){
     if(!refresh_token){
       return res.status(403).send({
@@ -92,8 +106,8 @@ router.get('/authenticated', async (req, res) => {
     }
 
     return verifyRefreshTokenAndCreateAccessToken(refresh_token)
-    .then(accessToken => {
-      return res.cookie('access_token', accessToken).send({success: true})
+    .then(data => {
+      return res.cookie('access_token', data.token).send({success: true, data: data.payload})
     })
     .catch(() => {
       return res.status(401).send({
@@ -103,18 +117,18 @@ router.get('/authenticated', async (req, res) => {
     })
   }else{
     try {
-      jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
-      
+      const payload = jwt.verify(access_token, process.env.JWT_ACCESS_TOKEN_SECRET)
       return res.send({
-        success: true
+        success: true,
+        data: payload
       })  
     }catch(err){
       res.cookie('access_token', '', {maxAge: 0})
       
       if(refresh_token){
         return verifyRefreshTokenAndCreateAccessToken(refresh_token)
-        .then(accessToken => {
-          return res.cookie('access_token', accessToken).send({success: true})
+        .then(data => {
+          return res.cookie('access_token', data.token).send({success: true, data: data.payload})
         })
         .catch(() => {
           return res.status(401).send({

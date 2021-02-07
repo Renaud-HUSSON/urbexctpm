@@ -17,7 +17,9 @@ const Connexion = () => {
     }).then(res => res.json())
 
     if(data.success){
-      setLogged(true)
+      console.log(data)
+      
+      setLogged({logged: true, data: data.data})
       router.push('/profil')
     }
   }

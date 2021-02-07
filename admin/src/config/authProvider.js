@@ -15,6 +15,7 @@ const authProvider = {
         if(!json.success){
           return reject({message: json.message})
         }
+
         return resolve({message: json.message})
       })
     })
@@ -36,6 +37,11 @@ const authProvider = {
       if(!json.success){
         return reject({redirectTo: '/login'})
       }
+      
+      if(json.data.role !== 'admin'){
+        return reject({message: 'Vous n\'êtes pas autorisé à accéder à cette ressource'})
+      }
+      
       return resolve()
     })
   },

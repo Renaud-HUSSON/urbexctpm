@@ -9,11 +9,13 @@ const authenticate = async (req, res, role) => {
   if(accessToken){
     try {
       const verifiedAccessToken = verifyAccessToken(accessToken)
-      
+
       //Throw an error if the role isn't the one given as parameter
       if(verifiedAccessToken.role !== role && verifiedAccessToken.role !== 'admin'){
         throw new Error()
       }
+
+      req.userRole = verifiedAccessToken.role
       
       return verifiedAccessToken
     }catch(err){

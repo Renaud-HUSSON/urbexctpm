@@ -109,7 +109,7 @@ exports.findById = (req, res) => {
   const userId = req.userid
   const id = req.params.id
   
-  if(userId !== parseInt(id)){
+  if(userId !== parseInt(id) && req.userRole !== 'admin'){
     return res.status(403).send({
       success: false,
       message: "Vous n'êtes pas autorisé à accéder à cette ressource"
@@ -147,7 +147,7 @@ exports.findById = (req, res) => {
 exports.update = async (req, res) => {
   const id = req.params.id
   
-  if(parseInt(id, 10) !== req.userid){
+  if(parseInt(id, 10) !== req.userid && req.userRole !== 'admin'){
     return res.status(403).send({
       success: false,
       message: "Vous ne pouvez pas accéder à cette ressource"
@@ -195,10 +195,20 @@ exports.update = async (req, res) => {
 
 //Deletes one/many user(s)
 exports.deleteById = async (req, res) => {
+  const userId = req.userid
+  
+  
   if(!req.query.id){
     return res.status(400).send({
       success: false,
       message: "Vous devez préciser au moins un id"
+    })
+  }
+  
+  if(userId !== parseInt(req.query.id) && req.userRole !== 'admin'){
+    return res.status(403).send({
+      success: false,
+      message: "Vous n'êtes pas autorisé à accéder à cette ressource"
     })
   }
 

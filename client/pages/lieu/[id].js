@@ -36,11 +36,13 @@ export async function getStaticPaths(){
   const data = await fetch(`${process.env.BASE_API_URL}api/locations`)
   const json = await data.json()
 
-  const paths = json.data.map(location => ({ params: { id: (location.id).toString() }}))
+  let paths = []
+
+  paths = json.data.map(location => ({ params: { id: (location.id).toString() }}))
 
   return {
     paths,
-    fallback: false
+    fallback: true
   }
 }
 
@@ -57,7 +59,8 @@ export async function getStaticProps({ params }){
     props: {
       location: location.data,
       images: images.data
-    }
+    },
+    revalidate: 1
   }
 }
 

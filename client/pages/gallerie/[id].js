@@ -1,6 +1,6 @@
 import Head from "next/head"
 
-const ImageDetails = ({image}) => {
+const ImageDetails = ({image={chemin: ''}}) => {
   return <section className="image-details">
     <Head>
       <title>{image.titre} - urbexctpm</title>
@@ -39,9 +39,11 @@ export async function getStaticPaths(){
   const data = await fetch(`${process.env.BASE_API_URL}api/images?limit=1000000&fields=["id"]`)
   const json = await data.json()
 
-  const paths = json.data.map(item => ({ params: { id: item.id.toString() } }))
+  let paths = []
 
-  return { paths, fallback: false }
+  paths = json.data.map(item => ({ params: { id: item.id.toString() } }))
+
+  return { paths, fallback: true }
 }
 
 export async function getStaticProps({ params }){

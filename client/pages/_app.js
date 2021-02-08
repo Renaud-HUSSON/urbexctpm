@@ -6,12 +6,6 @@ import sitemap from "../sitemap";
 import "../styles/index.scss"
 
 function App({Component, pageProps}) {
-  useEffect(() => {
-    sitemap()
-    
-    window.setInterval(sitemap, 1000 * 60 * 60 * 24)
-  }, [])
-  
   return (
     <LoggedProvider>
       <Layout>
@@ -19,6 +13,15 @@ function App({Component, pageProps}) {
       </Layout>
     </LoggedProvider>
   );
+}
+
+export async function getStaticProps(){
+  sitemap()
+  window.setInterval(sitemap, 1000 * 60 * 60 * 24)
+
+  return {
+    props: {}
+  }
 }
 
 export default App;

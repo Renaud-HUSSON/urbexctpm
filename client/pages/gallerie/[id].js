@@ -1,38 +1,41 @@
 import Head from "next/head"
+import Ga from "../../components/Ga"
 
 const ImageDetails = ({image={chemin: ''}}) => {
-  return <section className="image-details">
-    <Head>
-      <title>{image.titre} - urbexctpm</title>
-      <meta name="description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+  return <Ga>
+    <section className="image-details">
+      <Head>
+        <title>{image.titre} - urbexctpm</title>
+        <meta name="description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
 
-      <meta property="og:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
-      <meta property="og:title" content={`${image.titre} - urbexctpm`} />
-      <meta property="og:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
-      <meta property="twitter:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
-      <meta property="twitter:title" content={`${image.titre} - urbexctpm`} />
-      <meta property="twitter:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
-    </Head>
-    <picture>
-      <source media="(min-width: 421px)" srcSet={image.chemin}/>
-      <source media="(max-width: 420px)" srcSet={image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
-      <img src={image.chemin} alt={image.titre}/>
-    </picture>
-    <div>
-      <h1>{image.titre}</h1>
-      {
-        image.location
-        ?<p>Lieu: {image.location.title}</p>
-        :<></>
-      }
-      {
-        image.categorie
-        ?<p>Catégorie: {image.categorie.titre}</p>
-        :<></>
-      }
-      <pre>{image.description}</pre>
-    </div>
-  </section>
+        <meta property="og:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+        <meta property="og:title" content={`${image.titre} - urbexctpm`} />
+        <meta property="og:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+        <meta property="twitter:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+        <meta property="twitter:title" content={`${image.titre} - urbexctpm`} />
+        <meta property="twitter:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
+      </Head>
+      <picture>
+        <source media="(min-width: 421px)" srcSet={image.chemin}/>
+        <source media="(max-width: 420px)" srcSet={image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
+        <img src={image.chemin} alt={image.titre}/>
+      </picture>
+      <div>
+        <h1>{image.titre}</h1>
+        {
+          image.location
+          ?<p>Lieu: {image.location.title}</p>
+          :<></>
+        }
+        {
+          image.categorie
+          ?<p>Catégorie: {image.categorie.titre}</p>
+          :<></>
+        }
+        <pre>{image.description}</pre>
+      </div>
+    </section>
+  </Ga> 
 }
 
 export async function getStaticPaths(){

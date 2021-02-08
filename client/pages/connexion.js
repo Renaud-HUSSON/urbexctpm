@@ -2,6 +2,7 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useContext } from "react"
 import { useForm } from "react-hook-form"
+import Ga from "../components/Ga"
 import withoutAuth from "../components/HOC/withoutAuth"
 import { LoggedContext } from "../context/Logged"
 
@@ -23,39 +24,41 @@ const Connexion = () => {
     }
   }
   
-  return <section className="login-page">
-    <Head>
-      <title>Se connecter - urbexctpm</title>
-      <meta name="description" content="Connectez vous et accédez à certaines pages tel que les lieux et la carte"/>
+  return <Ga>
+    <section className="login-page">
+      <Head>
+        <title>Se connecter - urbexctpm</title>
+        <meta name="description" content="Connectez vous et accédez à certaines pages tel que les lieux et la carte"/>
 
-      <meta property="og:url" content="https:/urbexctpm.fr/connexion" />
-      <meta property="og:title" content="Se connecter - urbexctpm" />
-      <meta property="og:description" content="Connectez vous et accédez à certaines pages tel que les lieux et la carte" />
-      <meta property="twitter:url" content="https:/urbexctpm.fr/carte" />
-      <meta property="twitter:title" content="Se connecter - urbexctpm" />
-      <meta property="twitter:description" content="Connectez vous et accédez à certaines pages tel que les lieux et la connexion" />
-    </Head>
-  
-    <h1>Connectez vous</h1>
-    <p>et accédez à certaines pages tel que les lieux et la carte</p>
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="input-group">
-        <label htmlFor="log-email">Adresse email</label>
-        <input type="email" id="log-email" name="email" ref={register({ required: true })}/><br/>
-        {errors.email && <p className="input-group__error">Vous devez rentrer un email</p>}
-      </div>
-      <div className="input-group">
-        <label htmlFor="log-password">Mot de passe</label>
-        <input type="password" id="log-password" name="password" ref={register({ required: true })}/><br/>
-        {errors.password && <p className="input-group__error">Vous devez rentrer un mot de passe</p>}
-      </div>
-      <div className="input-group checkbox">
-        <input type="checkbox" name="refresh" id="log-refresh" ref={register()}/>
-        <label htmlFor="log-refresh">Mémoriser mon mot de passe</label>
-      </div>
-      <button className="button" type="submit">Valider</button>
-    </form>
-  </section>
+        <meta property="og:url" content="https:/urbexctpm.fr/connexion" />
+        <meta property="og:title" content="Se connecter - urbexctpm" />
+        <meta property="og:description" content="Connectez vous et accédez à certaines pages tel que les lieux et la carte" />
+        <meta property="twitter:url" content="https:/urbexctpm.fr/carte" />
+        <meta property="twitter:title" content="Se connecter - urbexctpm" />
+        <meta property="twitter:description" content="Connectez vous et accédez à certaines pages tel que les lieux et la connexion" />
+      </Head>
+    
+      <h1>Connectez vous</h1>
+      <p>et accédez à certaines pages tel que les lieux et la carte</p>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="input-group">
+          <label htmlFor="log-email">Adresse email</label>
+          <input type="email" id="log-email" name="email" ref={register({ required: true })}/><br/>
+          {errors.email && <p className="input-group__error">Vous devez rentrer un email</p>}
+        </div>
+        <div className="input-group">
+          <label htmlFor="log-password">Mot de passe</label>
+          <input type="password" id="log-password" name="password" ref={register({ required: true })}/><br/>
+          {errors.password && <p className="input-group__error">Vous devez rentrer un mot de passe</p>}
+        </div>
+        <div className="input-group checkbox">
+          <input type="checkbox" name="refresh" id="log-refresh" ref={register()}/>
+          <label htmlFor="log-refresh">Mémoriser mon mot de passe</label>
+        </div>
+        <button className="button" type="submit">Valider</button>
+      </form>
+    </section>
+  </Ga> 
 }
 
 export default withoutAuth(Connexion)

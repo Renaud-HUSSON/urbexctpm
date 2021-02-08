@@ -2,34 +2,37 @@ import Link from 'next/link'
 import ScrollContainer from 'react-indiana-drag-scroll'
 import withAuth from '../../components/HOC/withAuth'
 import Head from 'next/head'
+import Ga from '../../components/Ga'
 
 const Lieu = ({ location, images }) => {
-  return <section className="lieu">
-    <Head>
-      <title>{location.title} - urbexctpm</title>
-      <meta name="description" content={location.description}/>
-    </Head>
-    <h1>{location.title}</h1>
-    <h2>Nous avons {images.length} images de ce lieu:</h2>
-    <div className="lieu__images">
-      <ScrollContainer vertical={false} className="lieu__images__scroll">
-      {
-        images.map(image => (
-          <div className="lieu__images__scroll__item">
-            <Link key={image.id} href={`/gallerie/${image.id}`}>
-              <a>
-                <img src={image.chemin} alt={image.titre}/>
-                <p>{image.titre}</p>
-              </a>
-            </Link>
-          </div>
-        ))
-      }
-      </ScrollContainer>
-    </div>
-    <h2>Description du lieu:</h2>
-    <p>{location.description}</p>
-  </section>
+  return <Ga>
+    <section className="lieu">
+      <Head>
+        <title>{location.title} - urbexctpm</title>
+        <meta name="description" content={location.description}/>
+      </Head>
+      <h1>{location.title}</h1>
+      <h2>Nous avons {images.length} images de ce lieu:</h2>
+      <div className="lieu__images">
+        <ScrollContainer vertical={false} className="lieu__images__scroll">
+        {
+          images.map(image => (
+            <div className="lieu__images__scroll__item">
+              <Link key={image.id} href={`/gallerie/${image.id}`}>
+                <a>
+                  <img src={image.chemin} alt={image.titre}/>
+                  <p>{image.titre}</p>
+                </a>
+              </Link>
+            </div>
+          ))
+        }
+        </ScrollContainer>
+      </div>
+      <h2>Description du lieu:</h2>
+      <p>{location.description}</p>
+    </section>
+  </Ga> 
 }
 
 export async function getStaticPaths(){

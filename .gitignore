@@ -6,3 +6,4 @@ backup.sh
 backup
 docker-compose.prod.yml
 init-letsencrypt.sh
+ga.js

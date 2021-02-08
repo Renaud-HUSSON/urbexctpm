@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://urbexctpm.fr/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>https://urbexctpm.fr/gallerie</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://urbexctpm.fr/carte</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://urbexctpm.fr/connexion</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://urbexctpm.fr/inscription</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://urbexctpm.fr/newsletter</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url><url>
+  <loc>https://urbexctpm.fr/gallerie/1</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+<url>
+  <loc>https://urbexctpm.fr/lieu/1</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
+</urlset>

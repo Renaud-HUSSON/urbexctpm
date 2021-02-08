@@ -1,9 +1,17 @@
+import { useEffect } from "react";
 import Header from "../components/Header/Header";
 import Layout from "../components/Layout"
 import { LoggedProvider } from "../context/Logged";
+import sitemap from "../sitemap";
 import "../styles/index.scss"
 
 function App({Component, pageProps}) {
+  useEffect(() => {
+    sitemap()
+    
+    window.setInterval(sitemap, 1000 * 60 * 60 * 24)
+  }, [])
+  
   return (
     <LoggedProvider>
       <Layout>

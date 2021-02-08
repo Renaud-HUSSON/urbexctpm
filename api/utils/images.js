@@ -47,6 +47,7 @@ resizeImage = (image, path, width=350) => {
 
     sharp(image.buffer)
     .resize(width)
+    .withMetadata()
     .toFile(path + image.originalname, (err, info) => {
       if(err){
         return reject({

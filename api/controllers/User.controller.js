@@ -295,7 +295,7 @@ exports.findByEmail = (email, role = '') => {
       if(!results){
         resolve({
           success: false,
-          message: `Le compte ayant pour adresse email ${email} n'existe pas`
+          message: `Aucun compte n'est inscrit avec cette adresse email`
         })
       }
       

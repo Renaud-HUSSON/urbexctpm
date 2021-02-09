@@ -1,15 +1,17 @@
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Ga from "../components/Ga"
 import withoutAuth from "../components/HOC/withoutAuth"
+import FlashMessage from "../components/shared/FlashMessage"
 import { LoggedContext } from "../context/Logged"
 
 const Connexion = () => {
   const { register, errors, handleSubmit } = useForm()
   const router = useRouter()
   const [, setLogged] = useContext(LoggedContext)
+  const [flash, setFlash] = useState({active: false, success: undefined, message: undefined})
 
   const onSubmit = async datas => {
     const data = await fetch('/api/auth/login', {
@@ -18,6 +20,8 @@ const Connexion = () => {
       headers: new Headers({'Content-Type': 'application/json'})
     }).then(res => res.json())
 
+    setFlash({active: true, success: data.success, message: data.message})
+
     if(data.success){
       setLogged({logged: true, data: data.data})
       router.push('/profil')
@@ -25,6 +29,13 @@ const Connexion = () => {
   }
   
   return <Ga>
+    {
+      flash.active
+      ?<FlashMessage success={flash.success} message={flash.message} duration={5000} setFlash={setFlash} stateContent={{active: false, success: undefined, message: undefined}}>
+        <p>{flash.message}</p>
+      </FlashMessage>
+      :<></>
+    }
     <section className="login-page">
       <Head>
         <title>Se connecter - urbexctpm</title>

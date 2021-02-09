@@ -1,0 +1,49 @@
+div.flash {
+  position: fixed;
+  z-index: 100;
+  top: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30vw; 
+  padding: 1.5rem;
+  text-align: center;
+  line-height: 0.6rem;
+
+  &.flash--success, &.flash--success * {
+    background-color: var(--lightGreen);
+    color: var(--darkGreen);
+  }
+  
+  &.flash--error, &.flash--error * {
+    background-color: var(--lightRed);
+    color: var(--darkRed);
+  }
+
+  div.flash__close {
+    position: absolute;
+    top: 0; 
+    right: 0;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1200px){
+  div.flash {
+    width: 45vw; 
+  }
+}
+
+@media (max-width: 991px){
+  div.flash {
+    width: 70vw; 
+  }
+}
+
+@media (max-width: 768px){
+  div.flash {
+    width: 95vw; 
+    top: 0.5rem;
+  }
+}

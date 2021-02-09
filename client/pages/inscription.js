@@ -6,6 +6,7 @@ import Ga from "../components/Ga"
 import withoutAuth from "../components/HOC/withoutAuth"
 import FlashMessage from "../components/shared/FlashMessage"
 import { LoggedContext } from "../context/Logged"
+import Link from 'next/link'
 
 const Inscription = () => {
   const { register, errors, handleSubmit } = useForm()
@@ -52,7 +53,8 @@ const Inscription = () => {
       </Head>
     
       <h1>Créez un compte</h1>
-      <p>et gagnez la possibilité d'accéder à certaines pages tel que les lieux et la carte</p>
+      <p className="login-page__choice">ou bien <Link href="/connexion"><a>connectez vous</a></Link></p>
+      <p>Et gagnez la possibilité d'accéder à certaines pages tel que les lieux et la carte</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <label htmlFor="reg-username">Prénom / Nom</label>

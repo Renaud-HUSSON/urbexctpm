@@ -1,4 +1,5 @@
 import Head from "next/head"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -50,7 +51,8 @@ const Connexion = () => {
       </Head>
     
       <h1>Connectez vous</h1>
-      <p>et accédez à certaines pages tel que les lieux et la carte</p>
+      <p className="login-page__choice">ou bien <Link href="/inscription"><a>créez un compte</a></Link></p>
+      <p>Et accédez à certaines pages tel que les lieux et la carte</p>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <label htmlFor="log-email">Adresse email</label>

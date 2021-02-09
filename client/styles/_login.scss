@@ -9,8 +9,21 @@ section.require-login {
 }
 
 section.login-page {
+  h1 {
+    line-height: 1rem;
+  }
+  
   > p {
     font-size: 1.5rem;
+  }
+
+  .login-page__choice {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+
+    a {
+      color: lightskyblue
+    }
   }
   
   form {

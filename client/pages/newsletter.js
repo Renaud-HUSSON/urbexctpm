@@ -1,12 +1,11 @@
 import Head from "next/head";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Ga from "../components/Ga";
-import FlashMessage from "../components/shared/FlashMessage";
+import { FlashContext } from "../context/Flash";
 
 const Newsletter = () => {
-  const [flash, setFlash] = useState({active: false, success: undefined, message: undefined})
   const { register, errors, handleSubmit, reset } = useForm()
+  const [, setFlash] = useContext(FlashContext)
 
   const onSubmit = async datas => {
     const data = await fetch('/api/newsletter', {
@@ -38,14 +37,6 @@ const Newsletter = () => {
         <meta property="twitter:description" content="Inscrivez vous à notre newsletter et recevez des emails lorsque de nouvelles images sont disponnibles" />
       </Head>
 
-      {
-        flash.active
-        ?<FlashMessage success={flash.success} message={flash.message} duration={5000} setFlash={setFlash} stateContent={{active: false, success: undefined, message: undefined}}>
-          <p>{flash.message}</p>
-        </FlashMessage>
-        :<></>
-      }
-      
       <div className="left">
         <h1>Inscrivez vous à notre newsletter</h1>
         <p>Recevez des emails lorsque de nouvelles images sont disponnibles</p>

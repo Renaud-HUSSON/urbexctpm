@@ -1,10 +1,11 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useContext } from 'react'
+import { FlashContext } from '../../context/Flash'
 import { LoggedContext } from '../../context/Logged'
 
 const Nav = ({nav, setNav}) => {
   const [logged, setLogged] = useContext(LoggedContext)
+  const [, setFlash] = useContext(FlashContext)
 
   const handleClick = async () => {
     const data = await fetch('/api/auth/logout')
@@ -12,6 +13,7 @@ const Nav = ({nav, setNav}) => {
 
     setNav(false)
     setLogged({logged: false, data: ''})
+    setFlash({active: true, success: json.success, message: json.message})
   }
 
   const handleClickAdmin = () => {

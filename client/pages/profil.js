@@ -6,11 +6,13 @@ import Loading from '../components/shared/Loading'
 import { useForm } from "react-hook-form"
 import Ga from "../components/Ga"
 import { useRouter } from "next/router"
+import { FlashContext } from "../context/Flash"
 
 const Profile = () => {
   const router = useRouter()
   const [logged, setLogged] = useContext(LoggedContext)
   const { register, errors, handleSubmit, formState, getValues } = useForm()
+  const [, setFlash] = useContext(FlashContext)
 
   const profil = useGetData(`/api/users/${logged.data.sub}`)
 
@@ -45,6 +47,7 @@ const Profile = () => {
     }catch(e){}
 
     setLogged({logged: false, data: ''})
+    setFlash({active: true, success: json.success, message: json.message})
     router.push('/')
   }
 

@@ -5,10 +5,11 @@ import useGetData from '../hooks/useGetData'
 import Loading from '../components/shared/Loading'
 import { useForm } from "react-hook-form"
 import Ga from "../components/Ga"
+import { useRouter } from "next/router"
 
 const Profile = () => {
-  const [logged, ] = useContext(LoggedContext)
-
+  const router = useRouter()
+  const [logged, setLogged] = useContext(LoggedContext)
   const { register, errors, handleSubmit, formState, getValues } = useForm()
 
   const profil = useGetData(`/api/users/${logged.data.sub}`)
@@ -32,6 +33,20 @@ const Profile = () => {
     })
   }
   
+  const handleClick = async () => {
+    const data = await fetch(`/api/users?id=${logged.data.sub}`, {
+      method: 'DELETE'
+    })
+
+    const json = await data.json()
+
+    try {
+      await fetch('/api/auth/logout')
+    }catch(e){}
+
+    setLogged({logged: false, data: ''})
+    router.push('/')
+  }
 
   return <Ga>
     {
@@ -62,6 +77,7 @@ const Profile = () => {
         </div>
         <button disabled={formState.isSubmitting ? true : false} className="button" type="submit">Modifier</button>
       </form>
+      <button onClick={handleClick} className="button button--danger">Supprimer mon compte</button>
     </section>
     :<Loading />
     }

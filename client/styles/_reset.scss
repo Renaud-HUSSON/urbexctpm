@@ -61,6 +61,11 @@ li {
   &:hover {
     background: var(--lightBlack);
   }
+
+  &.button--danger {
+    background: var(--darkRed);
+    color: var(--lightRed);
+  }
 }
 
 span {

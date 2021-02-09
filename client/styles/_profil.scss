@@ -1,0 +1,9 @@
+section.profil {
+  display: flex;
+  flex-direction: column;
+
+  .button.button--danger {
+    margin-top: 2rem;
+    align-self: flex-end;
+  }
+}

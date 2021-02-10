@@ -65,6 +65,11 @@ li {
   &.button--danger {
     background: var(--darkRed);
     color: var(--lightRed);
+    
+    &:hover {
+      background: #721c24A0;
+      color: white;
+    }
   }
 }
 

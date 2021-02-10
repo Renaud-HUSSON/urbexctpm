@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import Ga from "../components/Ga";
 import { FlashContext } from "../context/Flash";

@@ -6,4 +6,23 @@ section.profil {
     margin-top: 2rem;
     align-self: flex-end;
   }
+
+}
+
+.modal .modal__content {
+
+  .modal__buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    button.button {
+      padding: 1rem;
+      margin-left: 0.25rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
 }

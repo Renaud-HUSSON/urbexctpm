@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import withAuth from "../components/HOC/withAuth"
 import { LoggedContext } from "../context/Logged"
 import useGetData from '../hooks/useGetData'
@@ -7,12 +7,14 @@ import { useForm } from "react-hook-form"
 import Ga from "../components/Ga"
 import { useRouter } from "next/router"
 import { FlashContext } from "../context/Flash"
+import Modal from "../components/shared/Modal"
 
 const Profile = () => {
   const router = useRouter()
   const [logged, setLogged] = useContext(LoggedContext)
   const { register, errors, handleSubmit, formState, getValues } = useForm()
   const [, setFlash] = useContext(FlashContext)
+  const [modal, setModal] = useState(false)
 
   const profil = useGetData(`/api/users/${logged.data.sub}`)
 
@@ -33,6 +35,14 @@ const Profile = () => {
       body: JSON.stringify(data),
       headers: new Headers({'Content-Type': 'application/json'})
     })
+  }
+
+  const handleOpenModal = () => {
+    setModal(true)
+  }
+  
+  const handleCloseModal = () => {
+    setModal(false)
   }
   
   const handleClick = async () => {
@@ -80,7 +90,14 @@ const Profile = () => {
         </div>
         <button disabled={formState.isSubmitting ? true : false} className="button" type="submit">Modifier</button>
       </form>
-      <button onClick={handleClick} className="button button--danger">Supprimer mon compte</button>
+      <button onClick={handleOpenModal} className="button button--danger">Supprimer mon compte</button>
+      <Modal modal={modal} setModal={setModal}>
+        <h2>Êtes vous sûr de vouloir supprimer votre compte?</h2>
+        <div className="modal__buttons">
+          <button className="button button--danger" onClick={handleClick}>Supprimer</button>
+          <button className="button button" onClick={handleCloseModal}>Annuler</button>
+        </div>
+      </Modal>
     </section>
     :<Loading />
     }

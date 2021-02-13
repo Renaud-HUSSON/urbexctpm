@@ -21,10 +21,10 @@ const Lieu = ({ location, images }) => {
           images.map(image => {
             const src = image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')
 
-            return <div className="lieu__images__scroll__item">
+            return <div key={image.id} className="lieu__images__scroll__item">
               <Link key={image.id} href={`/gallerie/${image.id}`}>
                 <a>
-                  <img src={src} alt={image.titre}/>
+                  <img src={src} alt={image.titre}></img>
                   <p>{image.titre}</p>
                 </a>
               </Link>

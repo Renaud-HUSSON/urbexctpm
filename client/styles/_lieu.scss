@@ -11,19 +11,28 @@ section.lieu {
       }
       
       a {        
+        display: block;
+        position: relative;
+        padding-bottom: 2rem;
+        
         img {
           height: 30vh;
           min-height: 300px;
         }
 
         p {
-          position: relative;
+          left: 0;
+          right: 0;
+          position: absolute;
           margin-top: -0.25rem;
           font-size: 1.25rem;
           text-align: center;
           background: var(--black);
           color: white;
           padding: 0.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

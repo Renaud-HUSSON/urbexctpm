@@ -5,6 +5,8 @@ import Head from 'next/head'
 import Ga from '../../components/Ga'
 
 const Lieu = ({ location, images }) => {
+  
+  
   return <Ga>
     <section className="lieu">
       <Head>
@@ -16,16 +18,18 @@ const Lieu = ({ location, images }) => {
       <div className="lieu__images">
         <ScrollContainer vertical={false} className="lieu__images__scroll">
         {
-          images.map(image => (
-            <div className="lieu__images__scroll__item">
+          images.map(image => {
+            const src = image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')
+
+            return <div className="lieu__images__scroll__item">
               <Link key={image.id} href={`/gallerie/${image.id}`}>
                 <a>
-                  <img src={image.chemin} alt={image.titre}/>
+                  <img src={src} alt={image.titre}/>
                   <p>{image.titre}</p>
                 </a>
               </Link>
             </div>
-          ))
+          })
         }
         </ScrollContainer>
       </div>

@@ -2,7 +2,7 @@ import Head from "next/head"
 import Ga from "../components/Ga"
 import Presentation from "../components/Home/Presentation"
 import PresentationCarte from "../components/Home/PresentationCarte"
-import PresentationGalerie from "../components/Home/PresentationGallerie"
+import PresentationGalerie from "../components/Home/PresentationGalerie"
 
 const Home = ({carouselImages}) => {
   

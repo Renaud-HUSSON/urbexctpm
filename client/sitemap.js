@@ -13,7 +13,7 @@ const sitemap = async () => {
     <priority>1</priority>
   </url>
   <url>
-    <loc>${BASE_URL}gallerie</loc>
+    <loc>${BASE_URL}galerie</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -63,7 +63,7 @@ const sitemap = async () => {
   }
   
   try {
-    await generateDynamicPaths(`${BASE_URL}gallerie/`, `${BASE_URL}api/images`, 'id')
+    await generateDynamicPaths(`${BASE_URL}galerie/`, `${BASE_URL}api/images`, 'id')
     await generateDynamicPaths(`${BASE_URL}lieu/`, `${BASE_URL}api/locations`, 'id')
   }catch(e){}
   

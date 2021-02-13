@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
 
-const GallerieImage = ({image}) => {
+const galerieImage = ({image}) => {
   //Thumbnail's path
   const src = image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')
 
@@ -10,8 +10,8 @@ const GallerieImage = ({image}) => {
     rootMargin: '0px'
   });
 
-  return <Link href={`/gallerie/${image.id}`}>
-    <a className={`gallerie__images__item ${inView ? 'appear' : 'intersection-observer'}`} ref={ref}>
+  return <Link href={`/galerie/${image.id}`}>
+    <a className={`galerie__images__item ${inView ? 'appear' : 'intersection-observer'}`} ref={ref}>
       <div className="hover">
         <p>{image.titre}</p>
       </div>
@@ -25,4 +25,4 @@ const GallerieImage = ({image}) => {
   </Link>
 }
 
-export default GallerieImage
+export default galerieImage

@@ -50,13 +50,13 @@ const LazyLoadImages = ({setImages, images, limit, category}) => {
   }, [category])
 
   return !pagination.allLoaded
-    ?<div className="gallerie__see-more">
+    ?<div className="galerie__see-more">
       <button onClick={handleClick} className="button">Voir plus</button>
     </div>
     :<>
       {
         images.length === 0
-        ?<div className="gallerie__not-found">
+        ?<div className="galerie__not-found">
           <p>Aucune image n'a été trouvé</p>
           <div>
             <Loading />

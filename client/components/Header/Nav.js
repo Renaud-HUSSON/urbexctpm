@@ -23,7 +23,7 @@ const Nav = ({nav, setNav}) => {
   return <nav className={nav ? 'active' : ''}>
     <ul>
       <li><Link href="/">Accueil</Link></li>
-      <li><Link href="/gallerie">Gallerie</Link></li>
+      <li><Link href="/galerie">galerie</Link></li>
       <li><Link href="/carte">Carte</Link></li>
       {
         logged.logged

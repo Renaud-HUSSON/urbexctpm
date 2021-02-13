@@ -8,10 +8,10 @@ const ImageDetails = ({image={chemin: ''}}) => {
         <title>{image.titre} - urbexctpm</title>
         <meta name="description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
 
-        <meta property="og:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+        <meta property="og:url" content={`https:/urbexctpm.fr/Galerie/${image.id}`} />
         <meta property="og:title" content={`${image.titre} - urbexctpm`} />
         <meta property="og:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
-        <meta property="twitter:url" content={`https:/urbexctpm.fr/gallerie/${image.id}`} />
+        <meta property="twitter:url" content={`https:/urbexctpm.fr/Galerie/${image.id}`} />
         <meta property="twitter:title" content={`${image.titre} - urbexctpm`} />
         <meta property="twitter:description" content={image.description !== '' ? image.description : `Cette page présente les détails de la photo suivante: ${image.title}`} />
       </Head>

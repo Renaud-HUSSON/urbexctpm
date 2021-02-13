@@ -6,8 +6,8 @@ const PresentationGalerie = ({carouselImages}) => {
   return <section className="presentation-galerie">
     <div className="presentation-galerie__text">
       <h2>DÉCOUVREZ MES PHOTOS D'<span>URBEX</span></h2>
-      <Link href="/gallerie">
-        <a className="button">VOIR LA <span>GALLERIE</span></a>
+      <Link href="/galerie">
+        <a className="button">VOIR LA <span>galerie</span></a>
       </Link>
     </div>
     

@@ -6,7 +6,7 @@
     <priority>1</priority>
   </url>
   <url>
-    <loc>https://urbexctpm.fr/gallerie</loc>
+    <loc>https://urbexctpm.fr/galerie</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -30,7 +30,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url><url>
-  <loc>https://urbexctpm.fr/gallerie/1</loc>
+  <loc>https://urbexctpm.fr/Galerie/1</loc>
   <changefreq>weekly</changefreq>
   <priority>0.8</priority>
 </url>

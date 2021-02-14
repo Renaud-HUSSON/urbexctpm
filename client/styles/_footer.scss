@@ -1,5 +1,6 @@
 footer {
   padding: 2rem var(--bodyPadding) 5rem var(--bodyPadding);
+  padding-bottom: 0;
   background: var(--black);
   margin: 0 calc(-1 * var(--bodyPadding));
   margin-top: 3rem;
@@ -15,7 +16,7 @@ footer {
     clip-path: polygon(0 0%, 100% 100%, 100% 100%, 0% 100%);
   }
 
-  > div {
+  .footer__content {
     display: flex;
     justify-content: space-around;
 
@@ -38,10 +39,24 @@ footer {
       }
     }
   }
+
+  .footer__credit {
+    padding: 3rem 0;
+    
+    p {
+      color: white;
+      text-align: center;      
+      
+      a {
+        color: lightskyblue;
+      }
+    }
+    
+  }
 }
 
 @media (max-width: 768px){
-  footer > div {
+  footer .footer__content {
     flex-direction: column;
     align-items: center;
 

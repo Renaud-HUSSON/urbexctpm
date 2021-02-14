@@ -20,6 +20,12 @@ footer {
     display: flex;
     justify-content: space-around;
 
+    > div:nth-child(2n+1){
+      flex: 1;
+
+      text-align: center;
+    }
+    
     .pages {
       display: flex;
       flex-direction: column;

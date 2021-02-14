@@ -5,6 +5,7 @@ const { findByName } = require('../controllers/Role.controller')
 const { generateRefreshToken, generateAccessToken, verifyRefreshTokenAndCreateAccessToken, verifyAccessToken } = require('../utils/token')
 const db = require('../models/Database')
 const router = require('express').Router()
+const Mailer = require('../models/Mailer')
 
 router.post('/login', async (req, res) => {
   if(!req.body.email || !req.body.password){
@@ -82,6 +83,14 @@ router.post('/register', async (req, res) => {
         id: results.data.roleId
       }
     })
+
+    Mailer.sendMail(req.body.email, "Merci de vous être inscris !", 
+    `Votre compte a bien été créé ${req.body.username}! 
+
+Vous pouvez à présent accéder à certaines pages tel que la carte, et les différents lieux:
+
+La carte: https://urbexctpm.fr/carte
+Votre profil: https://urbexctpm.fr/profil`)
 
     return res.cookie('access_token', accessToken, {httpOnly: true}).send({
       success: true,

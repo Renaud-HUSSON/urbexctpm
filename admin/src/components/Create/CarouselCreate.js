@@ -3,7 +3,7 @@ import { Create, ReferenceInput, required, SelectInput, SimpleForm, TextInput } 
 const CarouselCreate = (props) => {
   return <Create {...props}>
     <SimpleForm>
-      <ReferenceInput label="image" source="imageId" reference="images" validate={[required()]} allowEmpty={false}>
+      <ReferenceInput perPage="100000" label="image" source="imageId" reference="images" validate={[required()]} allowEmpty={false}>
         <SelectInput optionText="titre" />
       </ReferenceInput>
     </SimpleForm>

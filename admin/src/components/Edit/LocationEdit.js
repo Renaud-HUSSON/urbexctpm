@@ -5,7 +5,7 @@ const LocationEdit = (props) => {
     <SimpleForm>
       <TextInput source="id" disabled/>
       <TextInput source="title" label="Titre"/>
-      <ReferenceInput source="regionId" reference="regions">
+      <ReferenceInput perPage="100000" source="regionId" reference="regions">
         <SelectInput optionText="nom" />
       </ReferenceInput>
       <TextInput style={{width: '100%'}} rows={10} source="description" multiline/>

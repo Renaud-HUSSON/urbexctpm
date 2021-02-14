@@ -4,7 +4,7 @@ const CarouselEdit = (props) => {
   return <Edit {...props}>
     <SimpleForm>
       <TextInput label="id" source="id" disabled/>
-      <ReferenceInput label="image" source="imageId" reference="images" validate={[required()]} allowEmpty={false}>
+      <ReferenceInput perPage="100000" label="image" source="imageId" reference="images" validate={[required()]} allowEmpty={false}>
         <SelectInput optionText="titre"/>
       </ReferenceInput>
       <DateInput source="createdAt" disabled/>

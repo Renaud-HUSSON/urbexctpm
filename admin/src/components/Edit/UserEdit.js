@@ -7,7 +7,7 @@ const UserEdit = (props) => {
       <TextInput source="username" disabled/>
       <TextInput source="email" disabled/>
       <TextInput source="roleId" disabled/>
-      <ReferenceInput source="roleId" reference="roles">
+      <ReferenceInput perPage="100000" source="roleId" reference="roles">
         <SelectInput optionText="nom" />
       </ReferenceInput>
       <PasswordInput source="password" disabled/>

@@ -2,7 +2,7 @@ import { Filter, ReferenceInput, SelectInput } from "react-admin"
 
 const UsersFilter = (props) => {
   return <Filter {...props}>
-    <ReferenceInput source="roleId" reference="roles" allowEmpty={false}>
+    <ReferenceInput perPage="100000" source="roleId" reference="roles" allowEmpty={false}>
       <SelectInput optionText="nom" />
     </ReferenceInput>
   </Filter>

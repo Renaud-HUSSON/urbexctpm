@@ -56,18 +56,28 @@ export async function getStaticPaths(){
 export async function getStaticProps({ params }){
   const id = params.id
 
-  const locationData = await fetch(`${process.env.BASE_API_URL}api/locations/${id}`)
-  const location = await locationData.json()
-
-  const imagesData = await fetch(`${process.env.BASE_API_URL}api/images?filter={locationId: ${location.data.id}}`)
-  const images = await imagesData.json()
-
-  return {
-    props: {
-      location: location.data,
-      images: images.data
-    },
-    revalidate: 1
+  try {
+    const locationData = await fetch(`${process.env.BASE_API_URL}api/locations/${id}`)
+    const location = await locationData.json()
+  
+    const imagesData = await fetch(`${process.env.BASE_API_URL}api/images?filter={locationId: ${location.data.id}}`)
+    const images = await imagesData.json()
+  
+    return {
+      props: {
+        location: location.data,
+        images: images.data
+      },
+      revalidate: 1
+    }
+  }catch(e){
+    return {
+      props: {
+        location: {},
+        images: {}
+      },
+      revalidate: 1
+    }
   }
 }
 

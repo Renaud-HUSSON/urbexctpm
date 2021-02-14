@@ -1,7 +1,6 @@
 require('dotenv').config()
 const nodemailer = require("nodemailer");
 const { htmlToText } = require('html-to-text');
-
 class Mailer {
   
   static sendMail = async (to, header, body, attachments) => {
@@ -25,7 +24,7 @@ class Mailer {
         to: to,
         subject: header,
         text: htmlToText(body),
-        html: `<pre>${body}</pre>`,
+        html: `<pre style="font-size: 1.2rem;">${body}</pre>`,
         attachments: attachments ? attachments : ''
       })
       return {

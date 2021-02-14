@@ -33,7 +33,8 @@ export async function getStaticProps(){
   return {
     props: {
       carouselImages: json.data
-    }
+    },
+    revalidate: 5
   }
 }
 

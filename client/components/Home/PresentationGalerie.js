@@ -13,9 +13,11 @@ const PresentationGalerie = ({carouselImages}) => {
     
     <Carousel>
       {
-        carouselImages.map(image => (
-          <img key={uuid()} src={image.image.chemin} alt={image.image.titre} />
-        ))
+        carouselImages.map(image => {
+          const src = image.image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')
+
+          return <img key={uuid()} src={src} alt={image.image.titre} />
+        })
       }
     </Carousel>
 

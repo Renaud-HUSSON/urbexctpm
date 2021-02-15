@@ -16,7 +16,7 @@ const Footer = () => {
       <div>
         <a href="https://www.instagram.com/urbexctpm/" target="_blank" rel="noreferrer">Instagram</a>
         <a href="mailto:simonloth@outlook.fr">Me contacter par mail:</a>
-        <a href="mailto:simonloth@outlook.fr">simonloth@outlook.fr</a>
+        <a href="mailto:urbexctpm@gmail.com">urbexctpm@gmail.com</a>
       </div>
     </div>
     <div className="footer__credit">

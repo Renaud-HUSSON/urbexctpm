@@ -35,7 +35,7 @@ const galerie = ({ imagesProps, limit, categoriesProps }) => {
         <meta property="twitter:description" content="Cette page présente notre galerie de photo, qui peuvent être filtrés par catégories, et qui permet d'accéder aux détails de chaque image" />
       </Head>
       <div className="galerie__header">
-        <h1>LA galerie</h1>
+        <h1>La Galerie</h1>
         <CategorySelect setCategory={setCategory} categories={categoriesProps}/>
       </div>
       {

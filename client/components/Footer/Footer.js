@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="footer__content">
       <div className="pages">
         <Link href="/">Accueil</Link>
-        <Link href="/galerie">galerie</Link>
+        <Link href="/galerie">Galerie</Link>
         <Link href="/carte">Carte</Link>
       </div>
       <div className="separator"></div>

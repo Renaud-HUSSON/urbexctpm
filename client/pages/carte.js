@@ -1,7 +1,6 @@
 import Map from "../components/Map/Map"
 import { useState } from 'react'
 import MapInformations from "../components/Map/MapInformations"
-import withAuth from "../components/HOC/withAuth"
 import Head from "next/head"
 import Ga from "../components/Ga"
 

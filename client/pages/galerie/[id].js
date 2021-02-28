@@ -17,7 +17,7 @@ const ImageDetails = ({image={chemin: ''}}) => {
       </Head>
       <picture>
         <source media="(min-width: 421px)" srcSet={image.chemin}/>
-        <source media="(max-width: 420px)" srcSet={image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
+        <source media="(max-width: 420px)" srcSet={image.chemin?.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')}/>
         <img src={image.chemin} alt={image.titre}/>
       </picture>
       <div>
@@ -50,25 +50,18 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({ params }){
-  try {
-    const data = await fetch(`${process.env.BASE_API_URL}api/images/${params.id}`)
-    const json = await data.json()
+  let json = []
   
-    return {
-      props: {
-        image: json.data
-      },
-      revalidate: 1
-    }
-  }catch(e){
-    return {
-      props: {
-        image: {
-          chemin: ''
-        }
-      },
-      revalidate: 1
-    }
+  try {
+    const data = await fetch(`${process.env.BASE_API_URL}api/images/${params.id}`).catch()
+    json = await data.json()
+  }catch(_){}
+
+  return {
+    props: {
+      image: json?.data ?? []
+    },
+    revalidate: 1
   }
 }
 

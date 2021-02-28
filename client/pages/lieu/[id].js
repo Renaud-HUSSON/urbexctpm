@@ -1,24 +1,21 @@
 import Link from 'next/link'
 import ScrollContainer from 'react-indiana-drag-scroll'
-import withAuth from '../../components/HOC/withAuth'
 import Head from 'next/head'
 import Ga from '../../components/Ga'
 
-const Lieu = ({ location, images }) => {
-  
-  
+const Lieu = ({ location, images }) => {  
   return <Ga>
     <section className="lieu">
       <Head>
-        <title>{location.title} - urbexctpm</title>
-        <meta name="description" content={location.description}/>
+        <title>{location?.title ?? ''} - urbexctpm</title>
+        <meta name="description" content={location?.description ?? ''}/>
       </Head>
-      <h1>{location.title}</h1>
-      <h2>Nous avons {images.length} images de ce lieu:</h2>
+      <h1>{location?.title ?? ''}</h1>
+      <h2>Nous avons {images?.length ?? ''} images de ce lieu:</h2>
       <div className="lieu__images">
         <ScrollContainer vertical={false} className="lieu__images__scroll">
         {
-          images.map(image => {
+          images?.map(image => {
             const src = image.chemin.replace(/(\/\w+\/)(.+[.][jpg|jpeg|png])/, '$1thumbnails/$2')
 
             return <div key={image.id} className="lieu__images__scroll__item">
@@ -34,7 +31,7 @@ const Lieu = ({ location, images }) => {
         </ScrollContainer>
       </div>
       <h2>Description du lieu:</h2>
-      <p>{location.description}</p>
+      <p>{location?.description ?? ''}</p>
     </section>
   </Ga> 
 }
@@ -54,30 +51,24 @@ export async function getStaticPaths(){
 }
 
 export async function getStaticProps({ params }){
-  const id = params.id
+  const { id } = params
+  let location = {}
+  let images = []
 
   try {
     const locationData = await fetch(`${process.env.BASE_API_URL}api/locations/${id}`)
-    const location = await locationData.json()
+    location = await locationData.json()
   
     const imagesData = await fetch(`${process.env.BASE_API_URL}api/images?filter={locationId: ${location.data.id}}`)
-    const images = await imagesData.json()
-  
-    return {
-      props: {
-        location: location.data,
-        images: images.data
-      },
-      revalidate: 1
-    }
-  }catch(e){
-    return {
-      props: {
-        location: {},
-        images: {}
-      },
-      revalidate: 1
-    }
+    images = await imagesData.json()
+  }catch(_){}
+
+  return {
+    props: {
+      location: location?.data ?? {},
+      images: images?.data ?? []
+    },
+    revalidate: 1
   }
 }
 

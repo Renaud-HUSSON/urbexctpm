@@ -39,4 +39,4 @@ export async function getStaticProps() {
   }
 }
 
-export default withAuth(carte)
+export default carte

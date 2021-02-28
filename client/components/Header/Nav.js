@@ -37,8 +37,8 @@ const Nav = ({nav, setNav}) => {
           }
         </>
         :<>
-          <li><Link href="/connexion">Se connecter</Link></li>
-          <li><Link href="/inscription">S'inscrire</Link></li>
+          {/* <li><Link href="/connexion">Se connecter</Link></li>
+          <li><Link href="/inscription">S'inscrire</Link></li> */}
         </>
       }
     </ul>

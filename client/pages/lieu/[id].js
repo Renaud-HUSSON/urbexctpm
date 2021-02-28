@@ -81,4 +81,4 @@ export async function getStaticProps({ params }){
   }
 }
 
-export default withAuth(Lieu)
+export default Lieu

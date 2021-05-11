@@ -1,7 +1,33 @@
-const fetch = require('node-fetch');
-const fs = require('fs')
+const fetch = require("node-fetch");
+const fs = require("fs");
 
-const BASE_URL = 'https://urbexctpm.fr/'
+const BASE_URL = "https://urbexctpm.fr/";
+
+const generateDynamicPaths = async (
+  basePath,
+  url,
+  field,
+  priority = 0.8,
+  freq = "weekly"
+) => {
+  let content = "";
+
+  const items = await fetch(url)
+    .then((res) => res.json())
+    .catch();
+
+  //Fill the sitemap
+  for (const item of items.data) {
+    content += `<url>
+  <loc>${basePath}${item[field]}</loc>
+  <changefreq>${freq}</changefreq>
+  <priority>${priority}</priority>
+</url>
+`;
+  }
+
+  return content;
+};
 
 const sitemap = async () => {
   //Static urls
@@ -36,42 +62,29 @@ const sitemap = async () => {
     <loc>${BASE_URL}newsletter</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>`
+  </url>`;
 
-  const generateDynamicPaths = (basePath, url, field, priority=0.8, freq='weekly') => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const data = await fetch(url)
-      
-        const items = await data.json()
-
-        //Fill the sitemap
-        for(const item of items.data){
-          content += `<url>
-  <loc>${basePath}${item[field]}</loc>
-  <changefreq>${freq}</changefreq>
-  <priority>${priority}</priority>
-</url>
-`
-        }
-
-        resolve()
-      }catch(e){
-        reject()
-      }
-    })
-  }
-  
   try {
-    await generateDynamicPaths(`${BASE_URL}galerie/`, `${BASE_URL}api/images`, 'id')
-    await generateDynamicPaths(`${BASE_URL}lieu/`, `${BASE_URL}api/locations`, 'id')
-  }catch(e){}
-  
-  content += `</urlset>`
+    content += await generateDynamicPaths(
+      `${BASE_URL}galerie/`,
+      `${BASE_URL}api/images?limit=10000000000000000`,
+      "id"
+    );
+    content += await generateDynamicPaths(
+      `${BASE_URL}lieu/`,
+      `${BASE_URL}api/locations?limit=10000000000000000`,
+      "id"
+    );
+  } catch (e) {}
 
-  fs.writeFile('./public/sitemap.xml', content, (err) => {
-    if(err) return console.log(`Une erreur est survenue lors de la génération du sitemap: ${err}`)
-  })
-}
+  content += `</urlset>`;
 
-export default sitemap
+  fs.writeFile("./public/sitemap.xml", content, (err) => {
+    if (err)
+      return console.log(
+        `Une erreur est survenue lors de la génération du sitemap: ${err}`
+      );
+  });
+};
+
+sitemap();

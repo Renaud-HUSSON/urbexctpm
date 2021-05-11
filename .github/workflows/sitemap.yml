@@ -21,5 +21,4 @@ jobs:
           port: 22
           script_stop: true
           script: |
-            docker container exec -i urbexclient /bin/sh
-            node sitemap.js
+            docker container exec urbexclient node sitemap.js

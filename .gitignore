@@ -7,3 +7,4 @@ backup
 docker-compose.prod.yml
 init-letsencrypt.sh
 ga.js
+sitemap.xml

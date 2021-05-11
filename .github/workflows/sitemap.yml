@@ -1,0 +1,25 @@
+name: Sitemap workflow
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  deploy:
+    name: Generate sitemap
+    runs-on: ubuntu-18.04
+    environment: production
+    steps:
+      - name: Generate sitemap using ssh remote commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: urbexctpm.fr
+          username: renaud
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script_stop: true
+          script: |
+            docker container exec -it urbexclient /bin/sh
+            node sitemap.js

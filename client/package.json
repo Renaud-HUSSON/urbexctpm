@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "next": "10.0.6",
+    "next": "^10.2.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-dropdown-select": "^4.7.3",
@@ -17,6 +17,7 @@
     "react-hook-form": "^6.15.1",
     "react-indiana-drag-scroll": "^1.8.0",
     "react-intersection-observer": "^8.31.0",
+    "react-youtube": "^7.13.1",
     "sass": "^1.32.5",
     "uuid": "^8.3.2"
   },

@@ -19,7 +19,7 @@ export const getStaticProps = async () => {
   const CHANNEL_ID = "UCzrtCQAmjlPvjm9x7hnluJw";
 
   const YOUTUBE_API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
-  const YOTUBE_API_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&channelType=any&maxResults=25&order=date&type=video&videoCaption=videoCaptionUnspecified&videoDefinition=any&key=${YOUTUBE_API_KEY}`;
+  const YOTUBE_API_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&channelType=any&maxResults=10&order=date&type=video&videoCaption=videoCaptionUnspecified&videoDefinition=any&key=${YOUTUBE_API_KEY}`;
 
   const videos = await fetch(YOTUBE_API_URL)
     .then((res) => res.json())
